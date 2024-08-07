@@ -1,0 +1,45 @@
+<div class="container-fluid my-5 px-5">
+    <div class="title">
+      <h4>Lista de Proyectos</h4>
+      <button type="button" class="btn btn-primary mb-5">Añadir Proyecto</button>
+    </div>
+  
+    @if (loading) {
+      <div class="alert alert-info" role="alert">
+        Cargando proyectos...
+      </div>
+    } @else if (listProyectos.length > 0) {
+      <table class="table table-hover mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Nombre del Proyecto</th>
+            <th scope="col">Director del Proyecto</th>
+            <th scope="col">Fecha PDV</th>
+            <th scope="col">Fecha Rodaje</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (proyecto of listProyectos; track proyecto.id_proyecto) {
+            <tr class="table-active">
+              <td>{{proyecto.nombre_proyecto}}</td>
+              <td>{{proyecto.director_proyecto}}</td>
+              <td>{{proyecto.fecha_pdv | date:'dd/MM/yyyy'}}</td>
+              <td>{{proyecto.fecha_rodaje | date:'dd/MM/yyyy'}}</td>
+              <td>{{proyecto.descripcion}}</td>
+              <td>
+                <button type="button" class="btn btn-info btn-sm ms-2">Ver</button>
+                <button type="button" class="btn btn-info btn-sm ms-2">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ms-2" (click)="openDeleteDialog(proyecto.id_proyecto)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <div class="alert alert-warning" role="alert">
+        <h5>No hay proyectos para mostrar</h5>
+      </div>
+    }
+  </div>

@@ -1,0 +1,38 @@
+@if(loading) {
+    <app-spinner></app-spinner>
+  }
+
+  @if(!loading) {
+<div class="wrapper">
+    <div class="body">
+        <h3 class="mb-2">Register</h3>
+        <div class="form-floating mb-3 mt-3">
+            <input type="text" [(ngModel)] = "username" class="form-control" placeholder="Ingrese usuario">
+            <label>Usuario</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <input type="text" [(ngModel)] = "documento"  class="form-control" placeholder="Ingrese CIF">
+            <label>CIF empresa</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+            <input type="text" [(ngModel)] = "email"  class="form-control" placeholder="Ingrese email">
+            <label>Email</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" [(ngModel)] = "password"  class="form-control" placeholder="Ingrese password">
+            <label>Password</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" [(ngModel)] = "confirmPassword"  class="form-control" placeholder="Repetir password">
+            <label>Repetir Password</label>
+        </div>
+        <div class="d-grid gap-2">
+            <button type="button" (click)= "addUser()" class = "btn btn-primary btn-lg" [routerLink]="['/home']">Aceptar</button>
+        </div>
+        <p class="mt-3"><a [routerLink]="['/login']">Volver</a></p>
+    </div>
+
+
+</div>
+  }
