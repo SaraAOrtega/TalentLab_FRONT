@@ -1,1 +1,115 @@
-<p>add-edit-proyecto works!</p>
+<div class="container-fluid my-5 px-5">
+
+<form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
+    <h2>{{ isEditMode ? 'Editar Proyecto' : 'Crear Nuevo Proyecto' }}</h2>
+  
+    <div class="form-group">
+      <label for="nombre_proyecto">Nombre del Proyecto</label>
+      <input
+        type="text"
+        id="nombre_proyecto"
+        formControlName="nombre_proyecto"
+        class="form-control"
+        [class.is-invalid]="proyectoForm.get('nombre_proyecto')?.invalid && proyectoForm.get('nombre_proyecto')?.touched"
+      >
+      @if (proyectoForm.get('nombre_proyecto')?.hasError('required') && proyectoForm.get('nombre_proyecto')?.touched) {
+        <div class="invalid-feedback">El nombre del proyecto es requerido.</div>
+      }
+      @if (proyectoForm.get('nombre_proyecto')?.hasError('minlength')) {
+        <div class="invalid-feedback">El nombre debe tener al menos 3 caracteres.</div>
+      }
+      @if (proyectoForm.get('nombre_proyecto')?.hasError('maxlength')) {
+        <div class="invalid-feedback">El nombre no puede exceder los 50 caracteres.</div>
+      }
+      @if (proyectoForm.get('nombre_proyecto')?.hasError('pattern')) {
+        <div class="invalid-feedback">El nombre solo puede contener letras y espacios.</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="director_proyecto">Director del Proyecto</label>
+      <input
+        type="text"
+        id="director_proyecto"
+        formControlName="director_proyecto"
+        class="form-control"
+        [class.is-invalid]="proyectoForm.get('director_proyecto')?.invalid && proyectoForm.get('director_proyecto')?.touched"
+      >
+      @if (proyectoForm.get('director_proyecto')?.hasError('required') && proyectoForm.get('director_proyecto')?.touched) {
+        <div class="invalid-feedback">El director del proyecto es requerido.</div>
+      }
+      @if (proyectoForm.get('director_proyecto')?.hasError('minlength')) {
+        <div class="invalid-feedback">El nombre del director debe tener al menos 3 caracteres.</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="fecha_pdv">Fecha PDV</label>
+      <input
+        type="date"
+        id="fecha_pdv"
+        formControlName="fecha_pdv"
+        class="form-control"
+        [class.is-invalid]="proyectoForm.get('fecha_pdv')?.invalid && proyectoForm.get('fecha_pdv')?.touched"
+      >
+      @if (proyectoForm.get('fecha_pdv')?.hasError('required') && proyectoForm.get('fecha_pdv')?.touched) {
+        <div class="invalid-feedback">La fecha PDV es requerida.</div>
+      }
+      @if (proyectoForm.get('fecha_pdv')?.hasError('fechaInvalida')) {
+        <div class="invalid-feedback">La fecha PDV no es válida.</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="fecha_rodaje">Fecha de Rodaje</label>
+      <input
+        type="date"
+        id="fecha_rodaje"
+        formControlName="fecha_rodaje"
+        class="form-control"
+        [class.is-invalid]="proyectoForm.get('fecha_rodaje')?.invalid && proyectoForm.get('fecha_rodaje')?.touched"
+      >
+      @if (proyectoForm.get('fecha_rodaje')?.hasError('required') && proyectoForm.get('fecha_rodaje')?.touched) {
+        <div class="invalid-feedback">La fecha de rodaje es requerida.</div>
+      }
+      @if (proyectoForm.get('fecha_rodaje')?.hasError('fechaInvalida')) {
+        <div class="invalid-feedback">La fecha de rodaje no es válida.</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="lugar">Lugar</label>
+      <input
+        type="text"
+        id="lugar"
+        formControlName="lugar"
+        class="form-control"
+        [class.is-invalid]="proyectoForm.get('lugar')?.invalid && proyectoForm.get('lugar')?.touched"
+      >
+      @if (proyectoForm.get('lugar')?.hasError('required') && proyectoForm.get('lugar')?.touched) {
+        <div class="invalid-feedback">El lugar es requerido.</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea
+        id="descripcion"
+        formControlName="descripcion"
+        class="form-control"
+        [class.is-invalid]="proyectoForm.get('descripcion')?.invalid && proyectoForm.get('descripcion')?.touched"
+      ></textarea>
+      @if (proyectoForm.get('descripcion')?.hasError('required') && proyectoForm.get('descripcion')?.touched) {
+        <div class="invalid-feedback">La descripción es requerida.</div>
+      }
+    </div>
+  
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" [disabled]="proyectoForm.invalid">
+        {{ isEditMode ? 'Actualizar Proyecto' : 'Crear Proyecto' }}
+      </button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="volverAListaProyectos()">Cancelar</button>
+    </div>
+  </form>
+
+</div>

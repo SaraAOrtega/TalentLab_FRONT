@@ -1,10 +1,10 @@
 
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { AuthGuard } from './guards/auth.guard';
-import { ListProyectosComponent } from './list-proyectos/list-proyectos.component';
+import { ListProyectosComponent } from './components/list-proyectos/list-proyectos.component';
+import { AddEditProyectoComponent } from './components/add-edit-proyecto/add-edit-proyecto.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,8 +12,10 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
   { path: 'proyectosList', component: ListProyectosComponent },
- 
+  { path: 'nuevo-proyecto', component: AddEditProyectoComponent },
+  { path: 'editar-proyecto/:id', component: AddEditProyectoComponent },
   /*
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },*/
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  */
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Proyecto } from '../../interfaces/proyecto';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +11,7 @@ import { ProyectoService } from '../../services/proyecto.service';
 @Component({
   selector: 'app-list-proyectos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './list-proyectos.component.html',
   styleUrls: ['./list-proyectos.component.css']
 })
@@ -60,7 +60,7 @@ export class ListProyectosComponent implements OnInit {
       disableClose: true,
       position: {
         left: '35%',
-        top: '-10%'
+        top: '10%'
       }
     });
 

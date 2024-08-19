@@ -37,7 +37,9 @@
           <a [routerLink]="['/login']" class="btn btn-outline-light me-2">LOGIN</a>
           <a [routerLink]="['/register']" class="btn btn-outline-light">REGISTER</a>
         } @else {
+          
           <span class="text-light me-3">Hi, {{(username$ | async)}}!</span>
+          <a [routerLink]="['/proyectosList']" class="btn btn-outline-light me-2">PROYECTOS</a>
           <button (click)="logOut()" class="btn btn-outline-light">LOG OUT</button>
         }
       </div>
