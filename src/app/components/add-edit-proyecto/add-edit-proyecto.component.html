@@ -103,13 +103,50 @@
         <div class="invalid-feedback">La descripción es requerida.</div>
       }
     </div>
-  
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary" [disabled]="proyectoForm.invalid">
-        {{ isEditMode ? 'Actualizar Proyecto' : 'Crear Proyecto' }}
-      </button>
+
+    <div formArrayName="personajes">
+      <h3>Personajes</h3>
+      @for (personaje of personajesFormArray.controls; track personaje; let i = $index) {
+        <div [formGroupName]="i" class="card mb-3">
+          <div class="card-body">
+            <div class="form-group">
+              <label [for]="'rol_' + i">Rol</label>
+              <input [id]="'rol_' + i" type="text" formControlName="rol" class="form-control" required>
+              @if (personaje.get('rol')?.invalid && personaje.get('rol')?.touched) {
+                <div class="invalid-feedback">El rol es requerido.</div>
+              }
+            </div>
+            <div class="form-group">
+              <label [for]="'descripcion_' + i">Descripción</label>
+              <textarea [id]="'descripcion_' + i" formControlName="descripcion" class="form-control" required></textarea>
+              @if (personaje.get('descripcion')?.invalid && personaje.get('descripcion')?.touched) {
+                <div class="invalid-feedback">La descripción es requerida.</div>
+              }
+            </div>
+            <button type="button" class="btn btn-info mt-2">Buscar Actores</button>
+            @if (personaje.get('actor_id')?.value) {
+              <p class="mt-2">Actor seleccionado: {{ personaje.get('actor_id')?.value }}</p>
+            }
+            <button type="button" class="btn btn-danger mt-2" (click)="eliminarPersonaje(i)">Eliminar Personaje</button>
+          </div>
+        </div>
+      } @empty {
+        <p>No hay personajes añadidos.</p>
+      }
+    </div>
+    <button type="button" class="btn btn-secondary mt-2" (click)="agregarPersonaje()">Agregar Personaje</button>
+
+    <div class="form-group mt-4">
+      @if (isEditMode) {
+        <button type="submit" class="btn btn-primary" [disabled]="!isFormValidForUpdate()">
+          Actualizar Proyecto
+        </button>
+      } @else {
+        <button type="submit" class="btn btn-primary" [disabled]="proyectoForm.invalid">
+          Crear Proyecto
+        </button>
+      }
       <button type="button" class="btn btn-secondary ml-2" (click)="volverAListaProyectos()">Cancelar</button>
     </div>
   </form>
-
 </div>

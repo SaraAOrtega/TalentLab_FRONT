@@ -1,15 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProyectoService } from '../../services/proyecto.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Proyecto } from '../../interfaces/proyecto';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-edit-proyecto',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatDialogModule],
   templateUrl: './add-edit-proyecto.component.html',
   styleUrl: './add-edit-proyecto.component.css'
 })
@@ -32,6 +33,7 @@ export class AddEditProyectoComponent implements OnInit {
       fecha_rodaje: ['', [Validators.required, this.fechaValidator()]],
       lugar: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
+      personajes: this.formBuilder.array([])
     });
   }
 
@@ -44,6 +46,11 @@ export class AddEditProyectoComponent implements OnInit {
       }
     });
   }
+
+  get personajesFormArray() {
+    return this.proyectoForm.get('personajes') as FormArray;
+  }
+
 
   fechaValidator() {
     return (control: any) => {
@@ -63,6 +70,12 @@ export class AddEditProyectoComponent implements OnInit {
     this.proyectoService.getProyecto(id).subscribe({
       next: (proyecto: Proyecto) => {
         this.proyectoForm.patchValue(proyecto);
+        console.log("Personajes cargados:", proyecto.personajes);  // Verifica qué personajes se están cargando
+        if (proyecto.personajes && proyecto.personajes.length > 0) {
+          proyecto.personajes.forEach(personaje => {
+            this.personajesFormArray.push(this.crearPersonajeFormGroup(personaje));
+          });
+        }
       },
       error: (e) => {
         console.error('Error al cargar el proyecto:', e);
@@ -71,13 +84,51 @@ export class AddEditProyectoComponent implements OnInit {
     });
   }
 
+  crearPersonajeFormGroup(personaje: any = {}) {
+    return this.formBuilder.group({
+      rol: [personaje.rol || '', Validators.required],
+      descripcion: [personaje.descripcion || ''],
+    });
+  }
+
+  agregarPersonaje() {
+    this.personajesFormArray.push(this.crearPersonajeFormGroup());
+  }
+
+  eliminarPersonaje(index: number) {
+    this.personajesFormArray.removeAt(index);
+  }
+
+  isFormValidForUpdate(): boolean {
+    if (!this.proyectoForm.valid) return false;
+    
+    if (this.personajesFormArray.length === 0) return false;
+    
+    for (let personajeControl of this.personajesFormArray.controls) {
+      if (personajeControl.invalid) return false;
+    }
+    
+    return true;
+  }
+
   onSubmit() {
-    if (this.proyectoForm.invalid) {
+    if (this.isEditMode && !this.isFormValidForUpdate()) {
+      this.toastr.error('Por favor, complete todos los campos requeridos, incluyendo los de los personajes.');
+      return;
+    }
+
+    if (!this.proyectoForm.valid) {
       this.proyectoForm.markAllAsTouched();
       return;
     }
 
-    const proyecto: Proyecto = this.proyectoForm.value;
+
+    const proyecto: Proyecto = {
+      ...this.proyectoForm.value,
+      personajes: this.personajesFormArray.value
+    };
+
+    console.log('Datos del proyecto a enviar:', JSON.stringify(proyecto, null, 2))
 
     if (this.isEditMode && this.proyectoId) {
       this.proyectoService.updateProyecto(this.proyectoId, proyecto).subscribe({

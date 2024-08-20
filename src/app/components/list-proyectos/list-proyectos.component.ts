@@ -2,28 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Proyecto } from '../../interfaces/proyecto';
 import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+
+
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProyectoService } from '../../services/proyecto.service';
+import { FilterProyectosPipe } from '../../pipes/filter.proyectos.pipe';
+
 ;
 
 @Component({
   selector: 'app-list-proyectos',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule, FilterProyectosPipe],
   templateUrl: './list-proyectos.component.html',
   styleUrls: ['./list-proyectos.component.css']
 })
 export class ListProyectosComponent implements OnInit {
   listProyectos: Proyecto[] = [];
   loading: boolean = false;
+  searchTerm: string = '';
   private dialogOpen: boolean = false; // Variable para controlar el estado del diálogo
 
   constructor(
     private _proyectoService: ProyectoService,
     private toastr: ToastrService,
-    private router: Router,
     public dialog: MatDialog
   ) {}
 
@@ -76,7 +81,7 @@ export class ListProyectosComponent implements OnInit {
   deleteProyecto(id: number) {
     this._proyectoService.deleteProyecto(id).subscribe(() => {
       this.getProyectos();
-      this.toastr.warning('Employee deleted successfully', 'Employee deleted');
+      this.toastr.warning('Proyecto eliminado existosamente', 'Proyecto eliminado');
     });
   }
 }

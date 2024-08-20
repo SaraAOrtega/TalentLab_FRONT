@@ -1,48 +1,42 @@
 <div class="container-fluid my-5 px-5">
-  <div class="title">
+  <div class="d-flex justify-content-between align-items-center mb-4">
     <h4>Lista de Proyectos</h4>
-    <button type="button" class="btn btn-primary mb-5" [routerLink]="['/nuevo-proyecto']">Añadir Proyecto</button>
+    <button type="button" class="btn btn-primary" [routerLink]="['/nuevo-proyecto']">Añadir Proyecto</button>
   </div>
-  
+
+  <!-- Buscador -->
+  <div class="mb-4">
+    <input type="text" class="form-control" placeholder="Buscar proyectos..." [(ngModel)]="searchTerm">
+  </div>
+
   @if (loading) {
     <div class="alert alert-info" role="alert">
       Cargando proyectos...
     </div>
   } @else if (listProyectos.length > 0) {
-    <table class="table table-hover mt-5">
-      <thead>
-        <tr>
-          <th scope="col">Nombre del Proyecto</th>
-          <th scope="col">Director del Proyecto</th>
-          <th scope="col">Fecha PDV</th>
-          <th scope="col">Fecha Rodaje</th>
-          <th scope="col">Descripción</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (proyecto of listProyectos; track proyecto.id_proyecto) {
-          <tr class="table-active">
-            <td>{{proyecto.nombre_proyecto}}</td>
-            <td>{{proyecto.director_proyecto}}</td>
-            <td>{{proyecto.fecha_pdv | date:'dd/MM/yyyy'}}</td>
-            <td>{{proyecto.fecha_rodaje | date:'dd/MM/yyyy'}}</td>
-            <td>{{proyecto.descripcion}}</td>
-            <td>
-              <button type="button" class="btn btn-info btn-sm" (click)="(proyecto.id_proyecto)">
-                Ver
-              </button>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      @for (proyecto of listProyectos | filterProyectos:searchTerm; track proyecto.id_proyecto) {
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{proyecto.nombre_proyecto}}</h5>
+              <p class="card-text">Director: {{proyecto.director_proyecto}}</p>
+              <p class="card-text">Fecha Rodaje: {{proyecto.fecha_rodaje | date:'dd/MM/yyyy'}}</p>
+            </div>
+            <div class="card-footer">
+              
+              
               <a [routerLink]="['/editar-proyecto', proyecto.id_proyecto]" class="btn btn-warning btn-sm ms-2">
                 Editar
               </a>
               <button type="button" class="btn btn-danger btn-sm ms-2" (click)="openDeleteDialog(proyecto.id_proyecto)">
                 Eliminar
               </button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
   } @else {
     <div class="alert alert-warning" role="alert">
       <h5>No hay proyectos para mostrar</h5>

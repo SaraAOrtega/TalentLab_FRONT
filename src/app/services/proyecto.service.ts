@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Proyecto } from '../interfaces/proyecto';
+import { Proyecto, Personaje } from '../interfaces/proyecto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +34,17 @@ export class ProyectoService {
   updateProyecto(id: number, proyecto: Proyecto): Observable<any> {
     return this.http.put(`${this.myAppUrl}${this.myApiUrl}${id}`, proyecto);
   }
+
+
+addPersonaje(proyectoId: number, personaje: Personaje): Observable<Personaje> {
+  return this.http.post<Personaje>(`${this.myAppUrl}${this.myApiUrl}${proyectoId}/personajes`, personaje);
+}
+
+updatePersonaje(proyectoId: number, personajeId: number, personaje: Personaje): Observable<Personaje> {
+  return this.http.put<Personaje>(`${this.myAppUrl}${this.myApiUrl}${proyectoId}/personajes/${personajeId}`, personaje);
+}
+
+deletePersonaje(proyectoId: number, personajeId: number): Observable<any> {
+  return this.http.delete(`${this.myAppUrl}${this.myApiUrl}${proyectoId}/personajes/${personajeId}`);
+}
 }
