@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListProyectosComponent } from './components/list-proyectos/list-proyectos.component';
 import { AddEditProyectoComponent } from './components/add-edit-proyecto/add-edit-proyecto.component';
+import { ActorsListComponent } from './components/actors-list/actors-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'proyectosList', component: ListProyectosComponent },
   { path: 'nuevo-proyecto', component: AddEditProyectoComponent },
   { path: 'editar-proyecto/:id', component: AddEditProyectoComponent },
+  { path: 'actors-list', component: ActorsListComponent },
   /*
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   */

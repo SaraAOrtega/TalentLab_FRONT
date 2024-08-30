@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Proyecto, Personaje } from '../interfaces/proyecto';
+import { Actor } from '../interfaces/actor';
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +33,15 @@ export class ProyectoService {
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}`, proyecto);
   }
 
-  updateProyecto(id: number, proyecto: Proyecto): Observable<any> {
-    return this.http.put(`${this.myAppUrl}${this.myApiUrl}${id}`, proyecto);
+  updateProyecto(id: number, proyecto: Proyecto): Observable<Proyecto> {
+    console.log('Actualizando proyecto:', { id, proyecto });
+    return this.http.put<Proyecto>(`${this.myAppUrl}${this.myApiUrl}${id}`, proyecto).pipe(
+      catchError((error) => {
+        console.error('Error en la solicitud:', error);
+        return throwError(() => new Error('Error al actualizar el proyecto. Por favor, inténtalo de nuevo.'));
+      })
+    );
   }
-
 
 addPersonaje(proyectoId: number, personaje: Personaje): Observable<Personaje> {
   return this.http.post<Personaje>(`${this.myAppUrl}${this.myApiUrl}${proyectoId}/personajes`, personaje);
@@ -46,5 +53,10 @@ updatePersonaje(proyectoId: number, personajeId: number, personaje: Personaje): 
 
 deletePersonaje(proyectoId: number, personajeId: number): Observable<any> {
   return this.http.delete(`${this.myAppUrl}${this.myApiUrl}${proyectoId}/personajes/${personajeId}`);
+}
+
+asociarActoresConPersonaje(personajeId: number, actores: Actor[]): Observable<any> {
+  const url = `${this.myAppUrl}api/personajes/${personajeId}/asociar-actor-personaje`;
+  return this.http.post(url, { actores });
 }
 }

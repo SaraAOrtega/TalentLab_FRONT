@@ -1,8 +1,8 @@
 <div class="container-fluid my-5 px-5">
-
-<form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
     <h2>{{ isEditMode ? 'Editar Proyecto' : 'Crear Nuevo Proyecto' }}</h2>
-  
+    
+    <!-- Nombre del Proyecto -->
     <div class="form-group">
       <label for="nombre_proyecto">Nombre del Proyecto</label>
       <input
@@ -12,20 +12,23 @@
         class="form-control"
         [class.is-invalid]="proyectoForm.get('nombre_proyecto')?.invalid && proyectoForm.get('nombre_proyecto')?.touched"
       >
-      @if (proyectoForm.get('nombre_proyecto')?.hasError('required') && proyectoForm.get('nombre_proyecto')?.touched) {
-        <div class="invalid-feedback">El nombre del proyecto es requerido.</div>
-      }
-      @if (proyectoForm.get('nombre_proyecto')?.hasError('minlength')) {
-        <div class="invalid-feedback">El nombre debe tener al menos 3 caracteres.</div>
-      }
-      @if (proyectoForm.get('nombre_proyecto')?.hasError('maxlength')) {
-        <div class="invalid-feedback">El nombre no puede exceder los 50 caracteres.</div>
-      }
-      @if (proyectoForm.get('nombre_proyecto')?.hasError('pattern')) {
-        <div class="invalid-feedback">El nombre solo puede contener letras y espacios.</div>
-      }
+      <div class="invalid-feedback">
+        @if (proyectoForm.get('nombre_proyecto')?.hasError('required') && proyectoForm.get('nombre_proyecto')?.touched) {
+          El nombre del proyecto es requerido.
+        }
+        @if (proyectoForm.get('nombre_proyecto')?.hasError('minlength')) {
+          El nombre debe tener al menos 3 caracteres.
+        }
+        @if (proyectoForm.get('nombre_proyecto')?.hasError('maxlength')) {
+          El nombre no puede exceder los 50 caracteres.
+        }
+        @if (proyectoForm.get('nombre_proyecto')?.hasError('pattern')) {
+          El nombre solo puede contener letras y espacios.
+        }
+      </div>
     </div>
-  
+    
+    <!-- Director del Proyecto -->
     <div class="form-group">
       <label for="director_proyecto">Director del Proyecto</label>
       <input
@@ -35,14 +38,17 @@
         class="form-control"
         [class.is-invalid]="proyectoForm.get('director_proyecto')?.invalid && proyectoForm.get('director_proyecto')?.touched"
       >
-      @if (proyectoForm.get('director_proyecto')?.hasError('required') && proyectoForm.get('director_proyecto')?.touched) {
-        <div class="invalid-feedback">El director del proyecto es requerido.</div>
-      }
-      @if (proyectoForm.get('director_proyecto')?.hasError('minlength')) {
-        <div class="invalid-feedback">El nombre del director debe tener al menos 3 caracteres.</div>
-      }
+      <div class="invalid-feedback">
+        @if (proyectoForm.get('director_proyecto')?.hasError('required') && proyectoForm.get('director_proyecto')?.touched) {
+          El director del proyecto es requerido.
+        }
+        @if (proyectoForm.get('director_proyecto')?.hasError('minlength')) {
+          El nombre del director debe tener al menos 3 caracteres.
+        }
+      </div>
     </div>
-  
+    
+    <!-- Fecha PDV -->
     <div class="form-group">
       <label for="fecha_pdv">Fecha PDV</label>
       <input
@@ -52,14 +58,17 @@
         class="form-control"
         [class.is-invalid]="proyectoForm.get('fecha_pdv')?.invalid && proyectoForm.get('fecha_pdv')?.touched"
       >
-      @if (proyectoForm.get('fecha_pdv')?.hasError('required') && proyectoForm.get('fecha_pdv')?.touched) {
-        <div class="invalid-feedback">La fecha PDV es requerida.</div>
-      }
-      @if (proyectoForm.get('fecha_pdv')?.hasError('fechaInvalida')) {
-        <div class="invalid-feedback">La fecha PDV no es válida.</div>
-      }
+      <div class="invalid-feedback">
+        @if (proyectoForm.get('fecha_pdv')?.hasError('required') && proyectoForm.get('fecha_pdv')?.touched) {
+          La fecha PDV es requerida.
+        }
+        @if (proyectoForm.get('fecha_pdv')?.hasError('fechaInvalida')) {
+          La fecha PDV no es válida.
+        }
+      </div>
     </div>
-  
+    
+    <!-- Fecha de Rodaje -->
     <div class="form-group">
       <label for="fecha_rodaje">Fecha de Rodaje</label>
       <input
@@ -69,14 +78,17 @@
         class="form-control"
         [class.is-invalid]="proyectoForm.get('fecha_rodaje')?.invalid && proyectoForm.get('fecha_rodaje')?.touched"
       >
-      @if (proyectoForm.get('fecha_rodaje')?.hasError('required') && proyectoForm.get('fecha_rodaje')?.touched) {
-        <div class="invalid-feedback">La fecha de rodaje es requerida.</div>
-      }
-      @if (proyectoForm.get('fecha_rodaje')?.hasError('fechaInvalida')) {
-        <div class="invalid-feedback">La fecha de rodaje no es válida.</div>
-      }
+      <div class="invalid-feedback">
+        @if (proyectoForm.get('fecha_rodaje')?.hasError('required') && proyectoForm.get('fecha_rodaje')?.touched) {
+          La fecha de rodaje es requerida.
+        }
+        @if (proyectoForm.get('fecha_rodaje')?.hasError('fechaInvalida')) {
+          La fecha de rodaje no es válida.
+        }
+      </div>
     </div>
-  
+    
+    <!-- Lugar -->
     <div class="form-group">
       <label for="lugar">Lugar</label>
       <input
@@ -86,11 +98,14 @@
         class="form-control"
         [class.is-invalid]="proyectoForm.get('lugar')?.invalid && proyectoForm.get('lugar')?.touched"
       >
-      @if (proyectoForm.get('lugar')?.hasError('required') && proyectoForm.get('lugar')?.touched) {
-        <div class="invalid-feedback">El lugar es requerido.</div>
-      }
+      <div class="invalid-feedback">
+        @if (proyectoForm.get('lugar')?.hasError('required') && proyectoForm.get('lugar')?.touched) {
+          El lugar es requerido.
+        }
+      </div>
     </div>
-  
+    
+    <!-- Descripción -->
     <div class="form-group">
       <label for="descripcion">Descripción</label>
       <textarea
@@ -99,35 +114,44 @@
         class="form-control"
         [class.is-invalid]="proyectoForm.get('descripcion')?.invalid && proyectoForm.get('descripcion')?.touched"
       ></textarea>
-      @if (proyectoForm.get('descripcion')?.hasError('required') && proyectoForm.get('descripcion')?.touched) {
-        <div class="invalid-feedback">La descripción es requerida.</div>
-      }
+      <div class="invalid-feedback">
+        @if (proyectoForm.get('descripcion')?.hasError('required') && proyectoForm.get('descripcion')?.touched) {
+          La descripción es requerida.
+        }
+      </div>
     </div>
 
+    <!-- Personajes -->
     <div formArrayName="personajes">
       <h3>Personajes</h3>
-      @for (personaje of personajesFormArray.controls; track personaje; let i = $index) {
+      @for (personaje of personajes.controls; track personaje; let i = $index) {
         <div [formGroupName]="i" class="card mb-3">
           <div class="card-body">
             <div class="form-group">
               <label [for]="'rol_' + i">Rol</label>
-              <input [id]="'rol_' + i" type="text" formControlName="rol" class="form-control" required>
-              @if (personaje.get('rol')?.invalid && personaje.get('rol')?.touched) {
-                <div class="invalid-feedback">El rol es requerido.</div>
-              }
+              <input [id]="'rol_' + i" type="text" formControlName="rol" class="form-control" [class.is-invalid]="personaje.get('rol')?.invalid && personaje.get('rol')?.touched">
+              <div class="invalid-feedback">
+                @if (personaje.get('rol')?.hasError('required') && personaje.get('rol')?.touched) {
+                  El rol es requerido.
+                }
+              </div>
             </div>
             <div class="form-group">
               <label [for]="'descripcion_' + i">Descripción</label>
-              <textarea [id]="'descripcion_' + i" formControlName="descripcion" class="form-control" required></textarea>
-              @if (personaje.get('descripcion')?.invalid && personaje.get('descripcion')?.touched) {
-                <div class="invalid-feedback">La descripción es requerida.</div>
-              }
+              <textarea [id]="'descripcion_' + i" formControlName="descripcion" class="form-control" [class.is-invalid]="personaje.get('descripcion')?.invalid && personaje.get('descripcion')?.touched"></textarea>
+              <div class="invalid-feedback">
+                @if (personaje.get('descripcion')?.hasError('required') && personaje.get('descripcion')?.touched) {
+                  La descripción es requerida.
+                }
+              </div>
             </div>
-            <button type="button" class="btn btn-info mt-2">Buscar Actores</button>
-            @if (personaje.get('actor_id')?.value) {
-              <p class="mt-2">Actor seleccionado: {{ personaje.get('actor_id')?.value }}</p>
-            }
-            <button type="button" class="btn btn-danger mt-2" (click)="eliminarPersonaje(i)">Eliminar Personaje</button>
+           <button 
+  type="button" 
+  class="btn btn-info mt-2" 
+  (click)="abrirSeleccionActores()">
+  Buscar Actores
+</button>
+            <button type="button" class="btn btn-danger mt-2 ml-2" (click)="eliminarPersonaje(i)">Eliminar Personaje</button>
           </div>
         </div>
       } @empty {
@@ -136,6 +160,7 @@
     </div>
     <button type="button" class="btn btn-secondary mt-2" (click)="agregarPersonaje()">Agregar Personaje</button>
 
+    <!-- Botones de acción -->
     <div class="form-group mt-4">
       @if (isEditMode) {
         <button type="submit" class="btn btn-primary" [disabled]="!isFormValidForUpdate()">
