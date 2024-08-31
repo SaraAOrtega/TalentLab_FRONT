@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActorService } from '../../services/actor.service';
+import { StateService } from '../../services/state.service';
 import { ToastrService } from 'ngx-toastr';
 import { Actor } from '../../interfaces/actor';
 import { finalize } from 'rxjs/operators';
@@ -16,6 +17,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class ActorsListComponent implements OnInit {
   actores: Actor[] = [];
+  actoresAsociados: Actor[] = []; // Para almacenar los actores ya asociados
   selectedActors: Set<number> = new Set<number>();
   loading = false;
   personajeId: number | null = null;
@@ -27,14 +29,24 @@ export class ActorsListComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.personajeId = params['personajeId'] ? +params['personajeId'] : null;
-      this.proyectoId = params['proyectoId'] ? +params['proyectoId'] : null;
-      console.log('Parámetros recibidos:', { personajeId: this.personajeId, proyectoId: this.proyectoId });
-      this.getActores();
-    });
-  }
+ ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    // Convertir parámetros a números si están presentes, de lo contrario asignar null
+    this.personajeId = params['personajeId'] ? +params['personajeId'] : null;
+    this.proyectoId = params['proyectoId'] ? +params['proyectoId'] : null;
+    
+    // Imprimir los parámetros recibidos para depuración
+    console.log('Parámetros recibidos:', { personajeId: this.personajeId, proyectoId: this.proyectoId });
+    
+    // Verificar si se ha proporcionado un ID de personaje
+    if (this.personajeId) {
+      this.getActoresAsociados(this.personajeId);
+    }
+    
+    // Cargar la lista de actores (sin necesidad de ID)
+    this.getActores();
+  });
+}
 
   getActores(): void {
     this.loading = true;
@@ -42,12 +54,32 @@ export class ActorsListComponent implements OnInit {
       finalize(() => this.loading = false)
     ).subscribe({
       next: (actores: Actor[]) => {
-        this.actores = actores;
-        console.log('Actores obtenidos:', actores);
+        // Filtrar los actores para excluir los que ya están asociados con el personaje
+        this.actores = actores.filter(actor => 
+          !this.actoresAsociados.some(a => a.id_actor === actor.id_actor)
+        );
+        console.log('Actores disponibles:', this.actores);
       },
       error: (e) => {
         console.error('Error al obtener actores:', e);
         this.toastr.error('No se pudo obtener la lista de actores');
+      }
+    });
+  }
+
+  getActoresAsociados(personajeId: number): void {
+    this.actorService.getActoresAsociadosConPersonaje(personajeId).subscribe({
+      next: (actoresAsociados: Actor[]) => {
+        this.actoresAsociados = actoresAsociados;
+        if (actoresAsociados.length > 0) {
+          console.log('Actores ya asociados:', this.actoresAsociados);
+        } else {
+          console.log('No hay actores asociados a este personaje.');
+        }
+      },
+      error: (e) => {
+        console.error('Error al obtener actores asociados:', e);
+        this.toastr.error('Hubo un problema al obtener la lista de actores asociados');
       }
     });
   }
@@ -73,22 +105,22 @@ export class ActorsListComponent implements OnInit {
       console.error('proyectoId es null o undefined');
       return;
     }
-  
+
     if (this.personajeId === null) {
       this.toastr.error('ID del personaje no disponible');
       console.error('personajeId es null');
       return;
     }
-  
+
     const actorIds = Array.from(this.selectedActors);
-  
+
     if (actorIds.length === 0) {
       this.toastr.warning('Por favor, seleccione al menos un actor');
       return;
     }
-  
+
     console.log('Enviando datos:', { personajeId: this.personajeId, actorId: actorIds });
-  
+
     this.actorService.asociarActoresConPersonaje(this.personajeId, actorIds).subscribe({
       next: (response) => {
         if (response.status === 200) {
@@ -108,7 +140,6 @@ export class ActorsListComponent implements OnInit {
       }
     });
   }
-  
 
   volverAProyecto(): void {
     if (this.proyectoId) {
@@ -116,7 +147,7 @@ export class ActorsListComponent implements OnInit {
       this.router.navigate(['/editar-proyecto', this.proyectoId]);
     } else {
       console.error('ID del proyecto no disponible');
-      // Puedes decidir navegar a la lista de proyectos o mostrar un mensaje de error
       this.router.navigate(['/proyectosList']);
     }
-  }}
+  }
+}

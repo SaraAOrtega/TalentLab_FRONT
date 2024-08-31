@@ -145,18 +145,13 @@
                 }
               </div>
             </div>
-           <button 
-  type="button" 
-  class="btn btn-info mt-2" 
-  (click)="abrirSeleccionActores()">
-  Buscar Actores
-</button>
+            <button type="button" class="btn btn-info mt-2" (click)="abrirSeleccionActores()">Buscar Actores</button>
             <button type="button" class="btn btn-danger mt-2 ml-2" (click)="eliminarPersonaje(i)">Eliminar Personaje</button>
+            <button (click)="verActoresPersonaje(personaje.get('id_personaje')?.value)">Ver Actores</button>
+             
           </div>
         </div>
-      } @empty {
-        <p>No hay personajes añadidos.</p>
-      }
+      } 
     </div>
     <button type="button" class="btn btn-secondary mt-2" (click)="agregarPersonaje()">Agregar Personaje</button>
 

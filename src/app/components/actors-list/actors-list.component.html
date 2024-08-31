@@ -1,46 +1,23 @@
 <div class="container mt-4">
   <h2 class="mb-4">Seleccionar Actores para el Personaje</h2>
-
-  <div class="mb-3">
-    <input type="text" class="form-control" [(ngModel)]="filterText" placeholder="Filtrar actores...">
+  <div class="mb-3"> <input type="text" class="form-control" [(ngModel)]="filterText" placeholder="Filtrar actores...">
   </div>
-
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    @for (actor of filterActors(); track actor.id_actor) {
-      <div class="col">
-        <div class="card h-100" [class.border-primary]="selectedActors.has(actor.id_actor)">
-          <img [src]="actor.foto_actor" class="card-img-top" [alt]="actor.nombre_actor">
-          <div class="card-body">
-            <h5 class="card-title">{{ actor.nombre_actor }}</h5>
-            <p class="card-text">Email: {{ actor.email_actor }}</p>
-            <p class="card-text">Fecha de nacimiento: {{ actor.fecha_nacimiento_actor | date:'dd/MM/yyyy' }}</p>
-          </div>
-          <div class="card-footer">
-            <button class="btn btn-outline-primary w-100" (click)="onSelectActor(actor.id_actor)">
-              @if (selectedActors.has(actor.id_actor)) {
-                Deseleccionar
-              } @else {
-                Seleccionar
-              }
-            </button>
-          </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4"> @for (actor of filterActors(); track actor.id_actor) { <div
+      class="col">
+      <div class="card h-100" [class.border-primary]="selectedActors.has(actor.id_actor)"> <img [src]="actor.foto_actor"
+          class="card-img-top" [alt]="actor.nombre_actor">
+        <div class="card-body">
+          <h5 class="card-title">{{ actor.nombre_actor }}</h5>
+          <p class="card-text">Email: {{ actor.email_actor }}</p>
+          <p class="card-text">Fecha de nacimiento: {{ actor.fecha_nacimiento_actor | date:'dd/MM/yyyy' }}</p>
         </div>
+        <div class="card-footer"> <button class="btn btn-outline-primary w-100" (click)="onSelectActor(actor.id_actor)">
+            @if (selectedActors.has(actor.id_actor)) { Deseleccionar } @else { Seleccionar } </button> </div>
       </div>
-    } @empty {
-      <div class="col-12">
-        <p class="alert alert-info">No se encontraron actores.</p>
-      </div>
-    }
-  </div>
-
-  <div class="mt-4">
-    <button 
-      class="btn btn-primary me-2" 
-      (click)="asociarActoresConPersonaje()" 
-      [disabled]="selectedActors.size === 0"
-    >
-      Asociar Actores Seleccionados
-    </button>
-    <button class="btn btn-secondary" (click)="volverAProyecto()">Volver al Proyecto</button>
-  </div>
+    </div> } @empty { <div class="col-12">
+      <p class="alert alert-info">No se encontraron actores.</p>
+    </div> } </div>
+  <div class="mt-4"> <button class="btn btn-primary me-2" (click)="asociarActoresConPersonaje()"
+      [disabled]="selectedActors.size === 0"> Asociar Actores Seleccionados </button> <button class="btn btn-secondary"
+      (click)="volverAProyecto()">Volver al Proyecto</button> </div>
 </div>

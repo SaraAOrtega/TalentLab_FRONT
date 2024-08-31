@@ -1,6 +1,6 @@
 // personaje.ts
-interface Personaje {
-    id_personaje?: number;
-    rol: string;
-    descripcion: string;
-  }
+export interface Personaje {
+  id_personaje?: number | null;
+  rol?: string;
+  descripcion?: string;
+}
