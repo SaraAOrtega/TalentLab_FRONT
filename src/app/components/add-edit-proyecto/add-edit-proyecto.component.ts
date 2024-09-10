@@ -1,31 +1,37 @@
-import { StateService } from './../../services/state.service';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProyectoService } from '../../services/proyecto.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Proyecto, Personaje } from '../../interfaces/proyecto';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialogModule } from '@angular/material/dialog';
+import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
 
 @Component({
   selector: 'app-add-edit-proyecto',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatDialogModule],
+  imports: [ReactiveFormsModule, CommonModule, ModalDeleteComponent],
   templateUrl: './add-edit-proyecto.component.html',
-  styleUrls: ['./add-edit-proyecto.component.css']
+  styleUrls: ['./add-edit-proyecto.component.css'],
 })
 export class AddEditProyectoComponent implements OnInit {
   proyectoForm: FormGroup;
   isEditMode: boolean = false;
   proyectoId: number | null = null;
+  showDeleteModal: boolean = false;
+  personajeIndexToDelete: number | null = null;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private proyectoService: ProyectoService,
-    private stateService: StateService,
     private toastr: ToastrService
   ) {
     this.proyectoForm = this.createForm();
@@ -35,10 +41,17 @@ export class AddEditProyectoComponent implements OnInit {
     this.checkEditMode();
   }
 
-  // Crear el formulario
   private createForm(): FormGroup {
     return this.fb.group({
-      nombre_proyecto: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-Z ]*$')]],
+      nombre_proyecto: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z ]*$'),
+        ],
+      ],
       director_proyecto: ['', [Validators.required, Validators.minLength(3)]],
       fecha_pdv: ['', [Validators.required, this.fechaValidator()]],
       fecha_rodaje: ['', [Validators.required, this.fechaValidator()]],
@@ -48,9 +61,8 @@ export class AddEditProyectoComponent implements OnInit {
     });
   }
 
-  // Verifica si es modo edición
   private checkEditMode() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       if (params['id']) {
         this.isEditMode = true;
         this.proyectoId = +params['id'];
@@ -59,7 +71,6 @@ export class AddEditProyectoComponent implements OnInit {
     });
   }
 
-  // Validación de la fecha
   private fechaValidator() {
     return (control: any) => {
       const fecha = new Date(control.value);
@@ -67,12 +78,11 @@ export class AddEditProyectoComponent implements OnInit {
     };
   }
 
-  // Cargar proyecto para edición
   private cargarProyecto(id: number) {
     this.proyectoService.getProyecto(id).subscribe({
       next: (proyecto) => {
         this.proyectoForm.patchValue(proyecto);
-        proyecto.personajes?.forEach(personaje => {
+        proyecto.personajes?.forEach((personaje) => {
           this.personajes.push(this.crearPersonajeFormGroup(personaje));
         });
       },
@@ -80,7 +90,6 @@ export class AddEditProyectoComponent implements OnInit {
     });
   }
 
-  // Creación de un nuevo FormGroup para personajes
   private crearPersonajeFormGroup(personaje: Personaje = {}): FormGroup {
     return this.fb.group({
       id_personaje: [personaje.id_personaje],
@@ -98,30 +107,58 @@ export class AddEditProyectoComponent implements OnInit {
   }
 
   eliminarPersonaje(index: number) {
-    const personaje = this.personajes.at(index);
-    const personajeId = personaje.get('id_personaje')?.value;
+    console.log('Intentando eliminar personaje en índice:', index);
+    this.personajeIndexToDelete = index;
+    this.showDeleteModal = true;
+    console.log('Modal de eliminación abierto:', this.showDeleteModal);
+  }
+  onConfirmDelete() {
+    if (this.personajeIndexToDelete !== null) {
+      const personaje = this.personajes.at(this.personajeIndexToDelete);
+      const personajeId = personaje.get('id_personaje')?.value;
 
-    if (personajeId && this.isEditMode && this.proyectoId && confirm('¿Estás seguro de que quieres eliminar este personaje? Esta acción no se puede deshacer.')) {
-      this.proyectoService.deletePersonaje(this.proyectoId, personajeId).subscribe({
-        next: () => {
-          this.personajes.removeAt(index);
-          this.toastr.success('Personaje eliminado con éxito');
-        },
-        error: () => this.toastr.error('No se pudo eliminar el personaje. Por favor, inténtalo de nuevo.'),
-      });
-    } else {
-      this.personajes.removeAt(index);
+      if (personajeId && this.isEditMode && this.proyectoId) {
+        this.proyectoService
+          .deletePersonaje(this.proyectoId, personajeId)
+          .subscribe({
+            next: () => {
+              this.personajes.removeAt(this.personajeIndexToDelete!);
+              this.toastr.success('Personaje eliminado con éxito');
+            },
+            error: () =>
+              this.toastr.error(
+                'No se pudo eliminar el personaje. Por favor, inténtalo de nuevo.'
+              ),
+          });
+      } else {
+        this.personajes.removeAt(this.personajeIndexToDelete);
+      }
     }
+    this.closeDeleteModal();
   }
 
-  // Validar el formulario antes de la actualización
+  onCancelDelete() {
+    this.closeDeleteModal();
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.personajeIndexToDelete = null;
+  }
+
   public isFormValidForUpdate(): boolean {
-    return this.proyectoForm.valid && this.personajes.length > 0 && this.personajes.controls.every(c => c.valid);
+    return (
+      this.proyectoForm.valid &&
+      this.personajes.length > 0 &&
+      this.personajes.controls.every((c) => c.valid)
+    );
   }
 
   async onSubmit() {
     if (this.isEditMode && !this.isFormValidForUpdate()) {
-      this.toastr.error('Por favor, complete todos los campos requeridos, incluyendo los de los personajes.');
+      this.toastr.error(
+        'Por favor, complete todos los campos requeridos, incluyendo los de los personajes.'
+      );
       return;
     }
 
@@ -135,7 +172,11 @@ export class AddEditProyectoComponent implements OnInit {
       this.toastr.success('Proyecto guardado con éxito');
       this.router.navigate(['/proyectosList']);
     } catch (error) {
-      this.toastr.error(typeof error === 'string' ? error : 'Error al guardar el proyecto. Por favor, inténtalo de nuevo.');
+      this.toastr.error(
+        typeof error === 'string'
+          ? error
+          : 'Error al guardar el proyecto. Por favor, inténtalo de nuevo.'
+      );
     }
   }
 
@@ -147,7 +188,7 @@ export class AddEditProyectoComponent implements OnInit {
       ...this.proyectoForm.value,
       personajes: this.personajes.value.map((p: Personaje) => ({
         ...p,
-        id_personaje: p.id_personaje != null ? p.id_personaje : null
+        id_personaje: p.id_personaje != null ? p.id_personaje : null,
       })),
     };
 
@@ -160,13 +201,16 @@ export class AddEditProyectoComponent implements OnInit {
 
   private actualizarProyecto(proyecto: Proyecto): Promise<number> {
     return new Promise((resolve, reject) => {
-      this.proyectoService.updateProyecto(this.proyectoId!, proyecto).subscribe({
-        next: (res: any) => {
-          this.actualizarIDsPersonajes(res.proyecto.personajes);
-          resolve(this.proyectoId!);
-        },
-        error: (e) => reject(e.error?.message || 'Error al actualizar el proyecto'),
-      });
+      this.proyectoService
+        .updateProyecto(this.proyectoId!, proyecto)
+        .subscribe({
+          next: (res: any) => {
+            this.actualizarIDsPersonajes(res.proyecto.personajes);
+            resolve(this.proyectoId!);
+          },
+          error: (e) =>
+            reject(e.error?.message || 'Error al actualizar el proyecto'),
+        });
     });
   }
 
@@ -201,22 +245,42 @@ export class AddEditProyectoComponent implements OnInit {
           this.toastr.error('Error: ID del personaje no disponible');
           return;
         }
-        this.router.navigate(['/actors-list'], { queryParams: { personajeId, proyectoId } });
+        this.router.navigate(['/actors-list'], {
+          queryParams: { personajeId, proyectoId },
+        });
       })
-      .catch(error => this.toastr.error(typeof error === 'string' ? error : 'Error al guardar el proyecto. Por favor, inténtalo de nuevo.'));
+      .catch((error) =>
+        this.toastr.error(
+          typeof error === 'string'
+            ? error
+            : 'Error al guardar el proyecto. Por favor, inténtalo de nuevo.'
+        )
+      );
   }
 
   verActoresPersonaje(personajeId: number): void {
     if (personajeId && this.proyectoId) {
-      console.log('Navegando a /personaje-actor con personajeId:', personajeId, 'y proyectoId:', this.proyectoId);  // Depuración
-      this.router.navigate(['/personaje-actor', personajeId], { queryParams: { proyectoId: this.proyectoId } });
+      console.log(
+        'Navegando a /personaje-actor con personajeId:',
+        personajeId,
+        'y proyectoId:',
+        this.proyectoId
+      ); // Depuración
+      this.router.navigate(['/personaje-actor', personajeId], {
+        queryParams: { proyectoId: this.proyectoId },
+      });
     } else {
       console.error('personajeId o proyectoId no definidos');
     }
   }
 
   volverAListaProyectos() {
-    if (this.proyectoForm.dirty && confirm('Tienes cambios no guardados. ¿Estás seguro de que quieres salir?')) {
+    if (
+      this.proyectoForm.dirty &&
+      confirm(
+        'Tienes cambios no guardados. ¿Estás seguro de que quieres salir?'
+      )
+    ) {
       this.router.navigate(['/proyectosList']);
     } else {
       this.router.navigate(['/proyectosList']);

@@ -1,11 +1,14 @@
-<div mat-dialog-title>
-    <h1 class="modal-title">Confirmar Eliminación</h1>
+@if (isVisible) {
+  <div class="modal-overlay" [class.show]="showClass">
+    <div class="modal-container">
+      <div class="modal-content">
+        <h2 class="modal-title">{{ title }}</h2>
+        <p class="modal-message">{{ message }}</p>
+        <div class="modal-actions">
+          <button (click)="onCancel()" class="btn btn-secondary">{{ cancelButtonText }}</button>
+          <button (click)="onConfirm()" class="btn btn-danger">{{ confirmButtonText }}</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div mat-dialog-content class="modal-content">
-    <p>¿Estás seguro de que deseas eliminar este proyecto?</p>
-  </div>
-  <div mat-dialog-actions class="modal-actions">
-    <button mat-button (click)="onNoClick()" class="btn btn-secondary btn-sm ms-4 mb-3 mx-2">Cancelar</button>
-    <button mat-button (click)="onConfirmClick()" class="btn btn-success btn-sm mb-3 mx-2">Eliminar</button>
-  </div>
-  
+}

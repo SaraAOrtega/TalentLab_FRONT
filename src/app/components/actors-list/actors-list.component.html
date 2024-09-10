@@ -1,23 +1,232 @@
-<div class="container mt-4">
-  <h2 class="mb-4">Seleccionar Actores para el Personaje</h2>
-  <div class="mb-3"> <input type="text" class="form-control" [(ngModel)]="filterText" placeholder="Filtrar actores...">
-  </div>
-  <div class="row row-cols-1 row-cols-md-3 g-4"> @for (actor of filterActors(); track actor.id_actor) { <div
-      class="col">
-      <div class="card h-100" [class.border-primary]="selectedActors.has(actor.id_actor)"> <img [src]="actor.foto_actor"
-          class="card-img-top" [alt]="actor.nombre_actor">
-        <div class="card-body">
-          <h5 class="card-title">{{ actor.nombre_actor }}</h5>
-          <p class="card-text">Email: {{ actor.email_actor }}</p>
-          <p class="card-text">Fecha de nacimiento: {{ actor.fecha_nacimiento_actor | date:'dd/MM/yyyy' }}</p>
+<div class="filter-background">
+  <div class="container">
+    <section class="filtros-section">
+      <h2>Filtros de Búsqueda</h2>
+      <div class="filtros-grid">
+        <!-- Primera fila de filtros -->
+        <div class="filtros-row-1">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del actor</mat-label>
+            <input matInput [(ngModel)]="filters.nombre_actor">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Sexo</mat-label>
+            <mat-select [(ngModel)]="filters.sexo">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="hombre">hombre</mat-option>
+              <mat-option value="mujer">mujer</mat-option>
+              <mat-option value="no binario">no binario</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="slider-container">
+            <label>Edad</label>
+            <mat-slider min="18" max="75">
+              <input matSliderStartThumb [(ngModel)]="filters.edad_min">
+              <input matSliderEndThumb [(ngModel)]="filters.edad_max">
+            </mat-slider>
+            <div class="slider-values">
+              <span>{{ filters.edad_min }} años</span>
+              <span>{{ filters.edad_max }} años</span>
+            </div>
+          </div>
+          
+          <div class="slider-container">
+            <label>Altura</label>
+            <mat-slider min="150" max="200">
+              <input matSliderStartThumb [(ngModel)]="filters.altura_min">
+              <input matSliderEndThumb [(ngModel)]="filters.altura_max">
+            </mat-slider>
+            <div class="slider-values">
+              <span>{{ filters.altura_min }} cm</span>
+              <span>{{ filters.altura_max }} cm</span>
+            </div>
+          </div>
         </div>
-        <div class="card-footer"> <button class="btn btn-outline-primary w-100" (click)="onSelectActor(actor.id_actor)">
-            @if (selectedActors.has(actor.id_actor)) { Deseleccionar } @else { Seleccionar } </button> </div>
+
+        <!-- Segunda fila de filtros -->
+        <div class="filtros-row-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Complexión</mat-label>
+            <mat-select [(ngModel)]="filters.complexion" >
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="xs">xs</mat-option>
+              <mat-option value="s">s</mat-option>
+              <mat-option value="m">m</mat-option>
+              <mat-option value="l">l</mat-option>
+              <mat-option value="xl">xl</mat-option>
+              <mat-option value="xxl">xxl</mat-option>
+              <mat-option value="xxxl">xxxl</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Color de Ojos</mat-label>
+            <mat-select [(ngModel)]="filters.color_ojos">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="negros">negros</mat-option>
+              <mat-option value="marrones">marrones</mat-option>
+              <mat-option value="azules">azules</mat-option>
+              <mat-option value="grises">grises</mat-option>
+              <mat-option value="verdes">verdes</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Color de Pelo</mat-label>
+            <mat-select [(ngModel)]="filters.color_pelo">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="negro">negro</mat-option>
+              <mat-option value="castaño">castaño</mat-option>
+              <mat-option value="rubio">rubio</mat-option>
+              <mat-option value="canoso">canoso</mat-option>
+              <mat-option value="tintado">tintado</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo de Pelo</mat-label>
+            <mat-select [(ngModel)]="filters.tipo_pelo">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="liso">liso</mat-option>
+              <mat-option value="ondulado">ondulado</mat-option>
+              <mat-option value="rizado">rizado</mat-option>
+              <mat-option value="calvo">calvo</mat-option>
+              <mat-option value="calvo parcial">calvo parcial</mat-option>
+              <mat-option value="rastas">rastas</mat-option>
+              <mat-option value="afro">afro</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Corte de Pelo</mat-label>
+            <mat-select [(ngModel)]="filters.corte_pelo">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="corto">corto</mat-option>
+              <mat-option value="medio">medio</mat-option>
+              <mat-option value="largo">largo</mat-option>
+              <mat-option value="muy largo">muy largo</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tez</mat-label>
+            <mat-select [(ngModel)]="filters.tez">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="muy clara">muy clara</mat-option>
+              <mat-option value="clara">clara</mat-option>
+              <mat-option value="media">media</mat-option>
+              <mat-option value="morena">morena</mat-option>
+              <mat-option value="muy morena">muy morena</mat-option>
+              <mat-option value="trigeña">trigeña</mat-option>
+              <mat-option value="oscura">oscura</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Idiomas</mat-label>
+            <mat-select [(ngModel)]="filters.idiomas">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="catalán">catalán</mat-option>
+              <mat-option value="inglés">inglés</mat-option>
+              <mat-option value="francés">francés</mat-option>
+              <mat-option value="italiano">italiano</mat-option>
+              <mat-option value="alemán">alemán</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Skills</mat-label>
+            <mat-select [(ngModel)]="filters.skills">
+              <mat-option value="">Todas</mat-option>
+              <mat-option value="canto">canto</mat-option>
+              <mat-option value="danza">danza</mat-option>
+              <mat-option value="bicicleta">bicicleta</mat-option>
+              <mat-option value="motocicleta">motocicleta</mat-option>
+              <mat-option value="equitacion">equitación</mat-option>
+              <mat-option value="deportes extremos">deportes extremos</mat-option>
+              <mat-option value="rollers">rollers</mat-option>
+              <mat-option value="skate">skate</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Carnet de Conducir</mat-label>
+            <mat-select [(ngModel)]="filters.carnet_conducir">
+              <mat-option [value]="null">Sin filtro</mat-option>
+              <mat-option [value]="true">Sí</mat-option>
+              <mat-option [value]="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-    </div> } @empty { <div class="col-12">
-      <p class="alert alert-info">No se encontraron actores.</p>
-    </div> } </div>
-  <div class="mt-4"> <button class="btn btn-primary me-2" (click)="asociarActoresConPersonaje()"
-      [disabled]="selectedActors.size === 0"> Asociar Actores Seleccionados </button> <button class="btn btn-secondary"
-      (click)="volverAProyecto()">Volver al Proyecto</button> </div>
+
+      <div class="button-container">
+        <div class="left-buttons">
+          <button mat-stroked-button (click)="volverAProyecto()">
+            <mat-icon>arrow_back</mat-icon> Volver al Proyecto
+          </button>
+        </div>
+        <div class="right-buttons">
+          <button mat-stroked-button (click)="resetFiltros()">Resetear Filtros</button>
+          <button mat-raised-button color="primary" (click)="aplicarFiltros()">Aplicar Filtros</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="page-container">
+  <div class="background-logo"></div>
+  <div class="content-wrapper">
+    <!-- Sección de resultados -->
+    @if (loading) {
+      <div class="loading-container">
+        <!-- falta agregar spinner aquí -->
+        <p class="loading-text">Cargando actores...</p>
+      </div>
+    } @else {
+      @if (actores.length > 0) {
+        <div class="actor-grid">
+          @for (actor of actores; track actor.id_actor) {
+            <div class="actor-card" 
+                 [class.selected]="selectedActors.has(actor.id_actor)">
+              <div class="actor-image-container">
+                <img [src]="getFullImageUrl(actor.foto_actor)" (error)="handleImageError($event)" 
+                     class="actor-image">
+                <button mat-icon-button class="select-button" 
+                        (click)="onSelectActor(actor.id_actor)">
+                  <mat-icon [color]="selectedActors.has(actor.id_actor) ? 'warn' : ''">
+                    {{selectedActors.has(actor.id_actor) ? 'favorite' : 'favorite_border'}}
+                  </mat-icon>
+                </button>
+              </div>
+              <div class="actor-info">
+                <h3 class="actor-name">{{actor.nombre_actor}}</h3>
+                <p class="actor-age">{{actor.edad}} años</p>
+              </div>
+              <button mat-button color="primary" class="view-profile-button" (click)="abrirPerfilActor(actor)">
+                Ver Perfil
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="no-results">No se encontraron actores que coincidan con los filtros aplicados.</p>
+      }
+    }
+
+    <!-- Botones de acción -->
+    <div class="action-buttons">
+      <button mat-stroked-button (click)="volverAProyecto()">
+        <mat-icon>arrow_back</mat-icon> Volver al Proyecto
+      </button>
+      <button mat-raised-button color="primary" 
+              (click)="asociarActoresConPersonaje()" 
+              [disabled]="selectedActors.size === 0">
+        <mat-icon>link</mat-icon> Asociar Actores Seleccionados
+      </button>
+    </div>
+  </div>
 </div>

@@ -1,19 +1,172 @@
-<div class="home-container">
-    <header class="main-header">
-      <img src="assets/images/talent-lab-logo.png" alt="Talent Lab Logo" class="logo">
-      <h1 class="project-name">Talent Lab</h1>
-    </header>
-    
-    <main class="options-container">
-      <div class="option producer">
-        <h2>Eres Productora</h2>
-        <p>Encuentra el talento que necesitas para tu próximo proyecto.</p>
-        <a [routerLink]="['/login']" class="btn btn-primary">Explorar Talento</a>
+<!-- app.component.html -->
+<main class="landing-page">
+  <section class="hero">
+    <div class="container-fluid px-5 px-md-5">
+      <div class="row align-items-center">
+        <div class="col-lg-5 col-md-6 hero-content">
+          <h2 class="slogan mt-3">WE ARE A FULL SERVICE</h2>
+          <h1 class="title mt-1">AGENCIA</h1>
+          <h1 class="subtitle">CASTING Y<br>REPRESENTACIÓN</h1>
+          <p class="description">
+            Talent Lab es la agencia que conecta productoras con el talento ideal.
+            Descrubre y selecciona <br>fácilmente el elenco para tu próximo proyecto.
+            Agilizamos el proceso de búsqueda, ahorrando <br>tiempo y recursos,
+            mientras transformamos el casting en una experiencia eficiente y creativa.
+          </p>
+        </div>
+        <div class="col-lg-6 col-md-6 hero-image">
+          <img src="assets/logo.png" loading="lazy" alt="Creative Design Agency" class="img-fluid">
+        </div>
       </div>
-      <div class="option actor">
-        <h2>Eres Actor/Actriz</h2>
-        <p>Muestra tu talento y encuentra oportunidades en la industria.</p>
-        <a href="#" class="btn btn-primary">Crear Perfil</a>
+    </div>
+  </section>
+
+  <section class="options-section">
+    <div class="container">
+      <div class="options-container">
+        <div class="option-card producer">
+          <div class="card-content">
+            <h2 class="option-title">Eres Productora</h2>
+            <p class="option-description">Encuentra el talento que necesitas para tu próximo proyecto.</p>
+            <a [routerLink]="['/login']" class="cta-button">Explorar Talento</a>
+          </div>
+        </div>
+        <div class="option-card actor">
+          <div class="card-content">
+            <h2 class="option-title">Eres Actor/Actriz</h2>
+            <p class="option-description">Muestra tu talento y encuentra oportunidades en la industria.</p>
+            <a href="#contact-section" class="cta-button">Únete a Talent Lab</a>
+          </div>
+          <div class="card-icon">
+            <i class="fas fa-theater-masks"></i>
+          </div>
+        </div>
       </div>
-    </main>
+    </div>
+  </section>
+
+  <section id="portfolio-section" class="portfolio-section">
+    <div class="container-fluid px-4 px-md-5">
+      <h2 class="section-title">Nuestro talento en acción</h2>
+      <div class="photo-grid">
+        <div class="photo-item">
+          <img src="assets/carrusel1.jpg" loading="lazy" alt="Proyecto 1">
+          <div class="overlay">
+            <p>Vivari</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel2.jpg" loading="lazy" alt="Proyecto 2">
+          <div class="overlay">
+            <p>Mazda</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel3.jpg" loading="lazy" alt="Proyecto 3">
+          <div class="overlay">
+            <p>Despegar</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel4.jpg" loading="lazy" alt="Proyecto 4">
+          <div class="overlay">
+            <p>Cerveza Radler</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel5.jpg" loading="lazy" alt="Proyecto 5">
+          <div class="overlay">
+            <p>Multiopticas</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel6.jpg" loading="lazy" alt="Proyecto 6">
+          <div class="overlay">
+            <p>Carrefour</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel7.jpg" loading="lazy" alt="Proyecto 7">
+          <div class="overlay">
+            <p>Ametller Origen</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel8.jpg" loading="lazy" alt="Proyecto 8">
+          <div class="overlay">
+            <p>Dechatlon</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel9.jpg" loading="lazy" alt="Proyecto 9">
+          <div class="overlay">
+            <p>Seguros Ocaso</p>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img src="assets/carrusel10.jpg" loading="lazy" alt="Proyecto 10">
+          <div class="overlay">
+            <p>Vive Soy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact-section" class="contact-section">
+    <div class="container-fluid px-4 px-md-5">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 contact-info">
+          <h2>CONTACTO</h2>
+          <div class="map-container">
+            <app-map></app-map>
+          </div>
+          <div class="contact-details">
+            <p><strong>Dirección:</strong> Calle Valencia 107, Barcelona</p>
+            <p><strong>Teléfono:</strong> +34 123 456 789</p>
+            <p><strong>Email:</strong> info.talentlab.com</p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 contact-form">
+          <h2>LET'S START SOMETHING NEW</h2>
+          <h3>SAY HELLO!</h3>
+          <p>Ya seas un actor/actriz experimentado/a o estés dando tus primeros pasos, queremos conocerte. Completa el
+            formulario a
+            continuación y sé parte de una de las agencias con mayor tasa de éxito en casting de Barcelona.</p>
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" placeholder="Message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">SUBMIT</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="main-footer">
+  <div class="container-fluid px-4 px-md-5">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <h3 class="footer-logo">Talent Lab</h3>
+      </div>
+      <div class="col-md-4 text-center grey-color">
+        <p>&copy; 2024 Talent Lab. Todos los derechos reservados.</p>
+      </div>
+      <div class="col-md-4">
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
   </div>
+</footer>

@@ -1,45 +1,63 @@
-<div class="container-fluid my-5 px-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4>Lista de Proyectos</h4>
-    <button type="button" class="btn btn-primary" [routerLink]="['/nuevo-proyecto']">Añadir Proyecto</button>
-  </div>
-
-  <!-- Buscador -->
-  <div class="mb-4">
-    <input type="text" class="form-control" placeholder="Buscar proyectos..." [(ngModel)]="searchTerm">
-  </div>
-
-  @if (loading) {
-    <div class="alert alert-info" role="alert">
-      Cargando proyectos...
+<div class="page-container">
+  <div class="background-logo"></div>
+  <div class="content-wrapper">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="text-title">Lista de Proyectos</h2>
+      <button type="button" class="btn btn-agregar shadow-sm" [routerLink]="['/nuevo-proyecto']">
+        <i class="fas fa-plus me-2"></i>Añadir Proyecto
+      </button>
     </div>
-  } @else if (listProyectos.length > 0) {
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      @for (proyecto of listProyectos | filterProyectos:searchTerm; track proyecto.id_proyecto) {
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">{{proyecto.nombre_proyecto}}</h5>
-              <p class="card-text">Director: {{proyecto.director_proyecto}}</p>
-              <p class="card-text">Fecha Rodaje: {{proyecto.fecha_rodaje | date:'dd/MM/yyyy'}}</p>
-            </div>
-            <div class="card-footer">
-              
-              
-              <a [routerLink]="['/editar-proyecto', proyecto.id_proyecto]" class="btn btn-warning btn-sm ms-2">
-                Editar
-              </a>
-              <button type="button" class="btn btn-danger btn-sm ms-2" (click)="openDeleteDialog(proyecto.id_proyecto)">
-                Eliminar
-              </button>
+    
+    <!-- Buscador -->
+    <div class="mb-4 col-md-6 col-lg-4 mx-auto">
+      <div class="input-group">
+        <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control" placeholder="Buscar proyectos..." [(ngModel)]="searchTerm">
+      </div>
+    </div>
+    
+    @if (loading) {
+      <div class="alert alert-info" role="alert">
+        <i class="fas fa-spinner fa-spin me-2"></i>Cargando proyectos...
+      </div>
+    } @else if (listProyectos.length > 0) {
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @for (proyecto of listProyectos | filterProyectos:searchTerm; track proyecto.id_proyecto) {
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title">{{proyecto.nombre_proyecto}}</h3>
+                <h6 class="card-text">Director/a : {{proyecto.director_proyecto}}</h6>
+                <p class="card-text"><i class="far fa-calendar-alt me-2"></i>{{proyecto.fecha_rodaje | date:'dd/MM/yyyy'}}</p>
+              </div>
+              <div class="card-footer">
+                <a [routerLink]="['/editar-proyecto', proyecto.id_proyecto]" class="btn btn-outline-warning btn-sm me-1">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="openDeleteDialog(proyecto.id_proyecto)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>   
+              </div>
             </div>
           </div>
-        </div>
-      }
-    </div>
-  } @else {
-    <div class="alert alert-warning" role="alert">
-      <h5>No hay proyectos para mostrar</h5>
-    </div>
-  }
+        }
+      </div>
+    } @else {
+      <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <h5 class="d-inline">No hay proyectos para mostrar</h5>
+      </div>
+    }
+  </div>
 </div>
+
+
+  <app-modal-delete
+    [isVisible]="showDeleteModal"
+    [title]="'Eliminar Proyecto'"
+    [message]="'¿Estás seguro de que deseas eliminar este proyecto? Esta acción no se puede deshacer.'"
+    [confirmButtonText]="'Sí, eliminar'"
+    [cancelButtonText]="'No, cancelar'"
+    (confirm)="onConfirmDelete()"
+    (cancel)="onCancelDelete()"
+  ></app-modal-delete>

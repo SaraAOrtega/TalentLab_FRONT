@@ -1,0 +1,236 @@
+/* Estilos generales */
+.filter-background {
+  color: #333;
+  margin: 0;
+  padding: 5px 0;
+  background-color: var(--primary-color);
+}
+
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1a202c;
+}
+
+/* Estilos para la sección de filtros */
+.filtros-section {
+  background-color: var(--primary-color);
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.filtros-section h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.filtros-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filtros-row-1 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.filtros-row-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+/* Estilos para los campos de formulario */
+mat-form-field {
+  width: 100%;
+  height: 0;
+  font-size: 14px;
+  
+}
+
+/* Estilos para los sliders */
+.slider-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Estilos para los botones */
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Alinea el contenido a los extremos */
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.left-buttons {
+  display: flex;
+}
+
+.right-buttons {
+  display: flex;
+  gap: 0.5rem; /* Espacio entre los botones */
+}
+
+
+
+/* lista de actores */
+  .page-container {
+    min-height: 50vh;
+    background-color: var(--beig-color);
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .background-logo {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    left: 0;
+    bottom: 0;
+    background-image: url('../../../assets/logo_grande.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: 70%;
+    opacity: 0.3;
+    z-index: 1;
+  }
+  
+  .content-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .loading-container {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  .loading-text {
+    margin-top: 1rem;
+    color: #666;
+  }
+  
+  .actor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .actor-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .actor-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .actor-card.selected {
+    box-shadow: 0 0 0 2px #D1AC29, 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .actor-image-container {
+    position: relative;
+    aspect-ratio: 3 / 4;
+  }
+  
+  .actor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .select-button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .actor-info {
+    padding: 0.5rem;
+    text-align: center;
+  }
+  
+  
+  .actor-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var (--text-color); 
+  }
+  
+  .actor-age {
+    font-size: 1rem;
+    color: #666;
+    margin: 0.25rem 0 0;
+  }
+  
+  .view-profile-button {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 0.25rem 0;
+  }
+  
+  .no-results {
+    text-align: center;
+    color: #666;
+    padding: 2rem 0;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .mat-icon-button {
+    line-height: 1;
+  }
+  
+  .mat-icon {
+    font-size: 18px;
+    line-height: 18px;
+    width: 18px;
+    height: 18px;
+  }
+    
+  @media (max-width: 600px) {
+    .actor-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+  }

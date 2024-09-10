@@ -1,0 +1,93 @@
+.page-container {
+    min-height: 100vh;
+    background-color: var(--beig-color);
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .content-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .actor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem; 
+  }
+  
+  .actor-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  
+  .actor-image-container {
+    position: relative;
+    aspect-ratio: 3 / 4;
+  }
+  
+  .actor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .actor-info {
+    padding: 0.5rem;
+    text-align: center;
+  }
+  
+  .actor-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-color);
+  }
+  
+  .actor-age {
+    font-size: 1rem;
+    color: #666;
+    margin: 0.25rem 0 0;
+  }
+  
+  .actor-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+  }
+  
+  .view-profile-button {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+  }
+  
+  .remove-button {
+    flex-shrink: 0;
+  }
+  
+  .action-buttons {
+    text-align: center;
+    margin-top: 2rem; 
+  }
+  
+  .agregar-actores-button {
+    padding: 0.5rem 1rem;
+    margin: auto;
+  }
+  
+  .no-results {
+    text-align: center;
+    color: #666;
+    padding: 2rem 0;
+  }
+  
+  @media (max-width: 600px) {
+    .actor-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }

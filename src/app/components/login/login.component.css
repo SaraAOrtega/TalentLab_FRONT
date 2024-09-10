@@ -1,9 +1,97 @@
-
-.wrapper {
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    background-color: bisque;
-    height: 100%;
+.form-background {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 25px;
+  padding-top: 10vh;
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--primary-color) 0%, var(--primary-color) 50%, var(--grey-color) 50%);
+ 
 }
 
+.login-wrapper {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  z-index: 2;
+
+}
+
+.background-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../../assets/logo_grande.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 52%;
+  opacity: 0.3;
+  z-index: 1;
+ 
+}
+
+.login-form-container {
+  background-color: var(--beig-color);
+  opacity: 0.95;
+  padding: 40px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 80px;
+  margin-bottom: 60px;
+  color: var(--text-color);
+}
+
+.form-group {
+  margin-bottom: 40px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875em;
+}
+
+.btn-block {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1em;
+  margin-top: 20px;
+  background-color: var(--text-color);
+  color: var(--beig-color);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

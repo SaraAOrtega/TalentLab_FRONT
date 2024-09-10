@@ -13,7 +13,7 @@ export class ErrorService {
     if (e.error.msg) {
       this.toastr.error(e.error.msg, 'Error');
     } else {
-      this.toastr.error('Upps ocurrio un error, comuniquese con el administrador', 'Error');
+      this.toastr.error('Upps ocurrio un error, comuníquese con el administrador', 'Error');
     }
   }
 }

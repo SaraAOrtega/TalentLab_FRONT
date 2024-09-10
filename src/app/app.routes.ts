@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'nuevo-proyecto', component: AddEditProyectoComponent },
   { path: 'editar-proyecto/:id', component: AddEditProyectoComponent },
   { path: 'actors-list', component: ActorsListComponent },
-  { path: 'actors-list/:id', component: ActorsListComponent }, // Asegúrate de que esta ruta esté bien definida
+  { path: 'actors-list/:id', component: ActorsListComponent }, 
   { path: 'personaje-actor/:personajeId', component: PersonajeActorListComponent },
   /*
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },

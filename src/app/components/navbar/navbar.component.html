@@ -1,48 +1,44 @@
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Talent Lab</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">
+      <img src="assets/logo_peq.png" alt="Logo">
+      <span class="project-name">Talent Lab</span>
+    </a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
+    <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}" id="navbarColor01">
+      <ul class="navbar-nav center-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
+          <a class="nav-link active" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#portfolio-section">Sobre Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
+          <a class="nav-link" href="#contact-section">Contacto</a>
         </li>
       </ul>
-
-      <div class="d-flex align-items-center">
+      <ul class="navbar-nav right-nav">
         @if (!(isLoggedIn$ | async)) {
-          <a [routerLink]="['/login']" class="btn btn-outline-light me-2">LOGIN</a>
-          <a [routerLink]="['/register']" class="btn btn-outline-light">REGISTER</a>
+          <li class="nav-item">
+            <a [routerLink]="['/login']" class="nav-link">LOGIN</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/register']" class="nav-link">REGISTER</a>
+          </li>
         } @else {
-          
-          <span class="text-light me-3">Hi, {{(username$ | async)}}!</span>
-          <a [routerLink]="['/proyectosList']" class="btn btn-outline-light me-2">PROYECTOS</a>
-          <button (click)="logOut()" class="btn btn-outline-light">LOG OUT</button>
+          <li class="nav-item d-flex align-items-center">
+            <span class="text-grey-text">Hi, {{(username$ | async)}}!</span>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/proyectosList']" class="nav-link">PROYECTOS</a>
+          </li>
+          <li class="nav-item">
+            <button (click)="logOut()" class="nav-link">LOG OUT</button>
+          </li>
         }
-      </div>
+      </ul>
     </div>
   </div>
 </nav>

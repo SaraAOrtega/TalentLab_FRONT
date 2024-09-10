@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 interface LoginResponse {
   token: string;
   username: string;
-  userId: string; // Suponiendo que el ID del usuario se devuelve en la respuesta de login
+  userId: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private myAppUrl: string;
@@ -28,7 +28,6 @@ export class AuthService {
   private userIdSubject = new BehaviorSubject<string | null>(this.getUserId());
   userId$ = this.userIdSubject.asObservable();
 
-
   constructor(private http: HttpClient, private router: Router) {
     this.myAppUrl = environment.endpoint;
     this.myApiUrl = 'api/users';
@@ -40,9 +39,10 @@ export class AuthService {
   }
 
   login(user: LoginUser): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.myAppUrl}${this.myApiUrl}/login`, user)
+    return this.http
+      .post<LoginResponse>(`${this.myAppUrl}${this.myApiUrl}/login`, user)
       .pipe(
-        tap(response => {
+        tap((response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('username', response.username);
           localStorage.setItem('userId', response.userId); // Guardar el ID del usuario
@@ -53,7 +53,7 @@ export class AuthService {
           console.log(response.username);
           console.log(response.token);
         }),
-        catchError(error => {
+        catchError((error) => {
           console.error('Error en login:', error);
           throw error;
         })
@@ -63,7 +63,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
-    localStorage.removeItem('userId'); // Remover el ID del usuario
+    localStorage.removeItem('userId');
     this.isLoggedInSubject.next(false);
     this.usernameSubject.next('');
     this.router.navigate(['/login']);

@@ -1,6 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-    height: 100%;
-}
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+    --primary-color: #ffd700;
+    --secondary-color : #D1AC29;
+    --grey-color: #EFEFE8;
+    --beig-color: #F6F4EB;
+    --text-color: #333;
+  }
+
+  body {
+    font-family: 'Oswald', sans-serif !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  nav ul {
+    display: flex;
+    list-style-type: none;
+  }
+
+  nav ul li {
+    margin-right: 1rem;
+  }

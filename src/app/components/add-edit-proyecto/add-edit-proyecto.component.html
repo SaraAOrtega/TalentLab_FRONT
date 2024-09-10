@@ -1,172 +1,193 @@
 <div class="container-fluid my-5 px-5">
   <form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
     <h2>{{ isEditMode ? 'Editar Proyecto' : 'Crear Nuevo Proyecto' }}</h2>
-    
-    <!-- Nombre del Proyecto -->
-    <div class="form-group">
-      <label for="nombre_proyecto">Nombre del Proyecto</label>
-      <input
-        type="text"
-        id="nombre_proyecto"
-        formControlName="nombre_proyecto"
-        class="form-control"
-        [class.is-invalid]="proyectoForm.get('nombre_proyecto')?.invalid && proyectoForm.get('nombre_proyecto')?.touched"
-      >
-      <div class="invalid-feedback">
-        @if (proyectoForm.get('nombre_proyecto')?.hasError('required') && proyectoForm.get('nombre_proyecto')?.touched) {
-          El nombre del proyecto es requerido.
-        }
-        @if (proyectoForm.get('nombre_proyecto')?.hasError('minlength')) {
-          El nombre debe tener al menos 3 caracteres.
-        }
-        @if (proyectoForm.get('nombre_proyecto')?.hasError('maxlength')) {
-          El nombre no puede exceder los 50 caracteres.
-        }
-        @if (proyectoForm.get('nombre_proyecto')?.hasError('pattern')) {
-          El nombre solo puede contener letras y espacios.
-        }
-      </div>
-    </div>
-    
-    <!-- Director del Proyecto -->
-    <div class="form-group">
-      <label for="director_proyecto">Director del Proyecto</label>
-      <input
-        type="text"
-        id="director_proyecto"
-        formControlName="director_proyecto"
-        class="form-control"
-        [class.is-invalid]="proyectoForm.get('director_proyecto')?.invalid && proyectoForm.get('director_proyecto')?.touched"
-      >
-      <div class="invalid-feedback">
-        @if (proyectoForm.get('director_proyecto')?.hasError('required') && proyectoForm.get('director_proyecto')?.touched) {
-          El director del proyecto es requerido.
-        }
-        @if (proyectoForm.get('director_proyecto')?.hasError('minlength')) {
-          El nombre del director debe tener al menos 3 caracteres.
-        }
-      </div>
-    </div>
-    
-    <!-- Fecha PDV -->
-    <div class="form-group">
-      <label for="fecha_pdv">Fecha PDV</label>
-      <input
-        type="date"
-        id="fecha_pdv"
-        formControlName="fecha_pdv"
-        class="form-control"
-        [class.is-invalid]="proyectoForm.get('fecha_pdv')?.invalid && proyectoForm.get('fecha_pdv')?.touched"
-      >
-      <div class="invalid-feedback">
-        @if (proyectoForm.get('fecha_pdv')?.hasError('required') && proyectoForm.get('fecha_pdv')?.touched) {
-          La fecha PDV es requerida.
-        }
-        @if (proyectoForm.get('fecha_pdv')?.hasError('fechaInvalida')) {
-          La fecha PDV no es válida.
-        }
-      </div>
-    </div>
-    
-    <!-- Fecha de Rodaje -->
-    <div class="form-group">
-      <label for="fecha_rodaje">Fecha de Rodaje</label>
-      <input
-        type="date"
-        id="fecha_rodaje"
-        formControlName="fecha_rodaje"
-        class="form-control"
-        [class.is-invalid]="proyectoForm.get('fecha_rodaje')?.invalid && proyectoForm.get('fecha_rodaje')?.touched"
-      >
-      <div class="invalid-feedback">
-        @if (proyectoForm.get('fecha_rodaje')?.hasError('required') && proyectoForm.get('fecha_rodaje')?.touched) {
-          La fecha de rodaje es requerida.
-        }
-        @if (proyectoForm.get('fecha_rodaje')?.hasError('fechaInvalida')) {
-          La fecha de rodaje no es válida.
-        }
-      </div>
-    </div>
-    
-    <!-- Lugar -->
-    <div class="form-group">
-      <label for="lugar">Lugar</label>
-      <input
-        type="text"
-        id="lugar"
-        formControlName="lugar"
-        class="form-control"
-        [class.is-invalid]="proyectoForm.get('lugar')?.invalid && proyectoForm.get('lugar')?.touched"
-      >
-      <div class="invalid-feedback">
-        @if (proyectoForm.get('lugar')?.hasError('required') && proyectoForm.get('lugar')?.touched) {
-          El lugar es requerido.
-        }
-      </div>
-    </div>
-    
-    <!-- Descripción -->
-    <div class="form-group">
-      <label for="descripcion">Descripción</label>
-      <textarea
-        id="descripcion"
-        formControlName="descripcion"
-        class="form-control"
-        [class.is-invalid]="proyectoForm.get('descripcion')?.invalid && proyectoForm.get('descripcion')?.touched"
-      ></textarea>
-      <div class="invalid-feedback">
-        @if (proyectoForm.get('descripcion')?.hasError('required') && proyectoForm.get('descripcion')?.touched) {
-          La descripción es requerida.
-        }
-      </div>
-    </div>
 
-    <!-- Personajes -->
-    <div formArrayName="personajes">
-      <h3>Personajes</h3>
-      @for (personaje of personajes.controls; track personaje; let i = $index) {
-        <div [formGroupName]="i" class="card mb-3">
-          <div class="card-body">
-            <div class="form-group">
-              <label [for]="'rol_' + i">Rol</label>
-              <input [id]="'rol_' + i" type="text" formControlName="rol" class="form-control" [class.is-invalid]="personaje.get('rol')?.invalid && personaje.get('rol')?.touched">
-              <div class="invalid-feedback">
-                @if (personaje.get('rol')?.hasError('required') && personaje.get('rol')?.touched) {
-                  El rol es requerido.
-                }
-              </div>
-            </div>
-            <div class="form-group">
-              <label [for]="'descripcion_' + i">Descripción</label>
-              <textarea [id]="'descripcion_' + i" formControlName="descripcion" class="form-control" [class.is-invalid]="personaje.get('descripcion')?.invalid && personaje.get('descripcion')?.touched"></textarea>
-              <div class="invalid-feedback">
-                @if (personaje.get('descripcion')?.hasError('required') && personaje.get('descripcion')?.touched) {
-                  La descripción es requerida.
-                }
-              </div>
-            </div>
-            <button type="button" class="btn btn-info mt-2" (click)="abrirSeleccionActores()">Buscar Actores</button>
-            <button type="button" class="btn btn-danger mt-2 ml-2" (click)="eliminarPersonaje(i)">Eliminar Personaje</button>
-            <button (click)="verActoresPersonaje(personaje.get('id_personaje')?.value)">Ver Actores</button>
-             
+    <div class="form-row">
+      <div class="form-column">
+        <div class="form-group">
+          <label for="nombre_proyecto">Nombre del Proyecto</label>
+          <input type="text" id="nombre_proyecto" formControlName="nombre_proyecto" class="form-control"
+            [class.is-invalid]="proyectoForm.get('nombre_proyecto')?.invalid && proyectoForm.get('nombre_proyecto')?.touched">
+          <div class="invalid-feedback">
+            @if (proyectoForm.get('nombre_proyecto')?.hasError('required') &&
+            proyectoForm.get('nombre_proyecto')?.touched) {
+            El nombre del proyecto es requerido.
+            }
+            @if (proyectoForm.get('nombre_proyecto')?.hasError('minlength')) {
+            El nombre debe tener al menos 3 caracteres.
+            }
+            @if (proyectoForm.get('nombre_proyecto')?.hasError('maxlength')) {
+            El nombre no puede exceder los 50 caracteres.
+            }
+            @if (proyectoForm.get('nombre_proyecto')?.hasError('pattern')) {
+            El nombre solo puede contener letras y espacios.
+            }
           </div>
         </div>
-      } 
-    </div>
-    <button type="button" class="btn btn-secondary mt-2" (click)="agregarPersonaje()">Agregar Personaje</button>
+      </div>
 
-    <!-- Botones de acción -->
+      <!-- Director del Proyecto -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="director_proyecto">Director del Proyecto</label>
+          <input type="text" id="director_proyecto" formControlName="director_proyecto" class="form-control"
+            [class.is-invalid]="proyectoForm.get('director_proyecto')?.invalid && proyectoForm.get('director_proyecto')?.touched">
+          <div class="invalid-feedback">
+            @if (proyectoForm.get('director_proyecto')?.hasError('required') &&
+            proyectoForm.get('director_proyecto')?.touched) {
+            El director del proyecto es requerido.
+            }
+            @if (proyectoForm.get('director_proyecto')?.hasError('minlength')) {
+            El nombre del director debe tener al menos 3 caracteres.
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <!-- Fecha PDV -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="fecha_pdv">Fecha PDV</label>
+          <input type="date" id="fecha_pdv" formControlName="fecha_pdv" class="form-control"
+            [class.is-invalid]="proyectoForm.get('fecha_pdv')?.invalid && proyectoForm.get('fecha_pdv')?.touched">
+          <div class="invalid-feedback">
+            @if (proyectoForm.get('fecha_pdv')?.hasError('required') && proyectoForm.get('fecha_pdv')?.touched) {
+            La fecha PDV es requerida.
+            }
+            @if (proyectoForm.get('fecha_pdv')?.hasError('fechaInvalida')) {
+            La fecha PDV no es válida.
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Fecha de Rodaje -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="fecha_rodaje">Fecha de Rodaje</label>
+          <input type="date" id="fecha_rodaje" formControlName="fecha_rodaje" class="form-control"
+            [class.is-invalid]="proyectoForm.get('fecha_rodaje')?.invalid && proyectoForm.get('fecha_rodaje')?.touched">
+          <div class="invalid-feedback">
+            @if (proyectoForm.get('fecha_rodaje')?.hasError('required') && proyectoForm.get('fecha_rodaje')?.touched) {
+            La fecha de rodaje es requerida.
+            }
+            @if (proyectoForm.get('fecha_rodaje')?.hasError('fechaInvalida')) {
+            La fecha de rodaje no es válida.
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <!-- Lugar -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="lugar">Lugar</label>
+          <input type="text" id="lugar" formControlName="lugar" class="form-control"
+            [class.is-invalid]="proyectoForm.get('lugar')?.invalid && proyectoForm.get('lugar')?.touched">
+          <div class="invalid-feedback">
+            @if (proyectoForm.get('lugar')?.hasError('required') && proyectoForm.get('lugar')?.touched) {
+            El lugar es requerido.
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" formControlName="descripcion" class="form-control" rows="3"
+            [class.is-invalid]="proyectoForm.get('descripcion')?.invalid && proyectoForm.get('descripcion')?.touched"></textarea>
+          <div class="invalid-feedback">
+            @if (proyectoForm.get('descripcion')?.hasError('required') && proyectoForm.get('descripcion')?.touched) {
+            La descripción es requerida.
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Personajes -->
+    <div formArrayName="personajes" class="card mb-3 mt-2">
+      <div class="section-header mt-4 mx-2">
+        <h3>Personajes</h3>
+        <button type="button" class="btn btn-sm add-personaje" (click)="agregarPersonaje()">
+          <i class="fas fa-plus"></i> Agregar
+        </button>
+      </div>
+      @for (personaje of personajes.controls; track personaje; let i = $index) {
+      <div [formGroupName]="i">
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-column">
+              <div class="form-group">
+                <label [for]="'rol_' + i">Rol</label>
+                <select [id]="'rol_' + i" formControlName="rol" class="form-control"
+                  [class.is-invalid]="personaje.get('rol')?.invalid && personaje.get('rol')?.touched">
+                  <option value="Protagonista">Protagonista</option>
+                  <option value="Secundario">Secundario</option>
+                  <option value="Reparto">Reparto</option>
+                  <option value="Grupal">Grupal</option>
+                </select>
+                <div class="invalid-feedback">
+                  @if (personaje.get('rol')?.hasError('required') && personaje.get('rol')?.touched) {
+                  El rol es requerido.
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="form-column">
+              <div class="form-group">
+                <label [for]="'descripcion_' + i">Descripción</label>
+                <textarea [id]="'descripcion_' + i" formControlName="descripcion" class="form-control"
+                  [class.is-invalid]="personaje.get('descripcion')?.invalid && personaje.get('descripcion')?.touched"></textarea>
+                <div class="invalid-feedback">
+                  @if (personaje.get('descripcion')?.hasError('required') && personaje.get('descripcion')?.touched) {
+                  La descripción es requerida.
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="button-container">
+            <div class="button-group">
+              <button type="button" class="btn btn-info btn-sm" (click)="abrirSeleccionActores()">Buscar
+                Actores</button>
+              <button type="button" class="btn btn-info btn-sm"
+                (click)="verActoresPersonaje(personaje.get('id_personaje')?.value)">Ver Actores seleccionados</button>
+            </div>
+            <button type="button" class="btn btn-danger btn-sm" (click)="eliminarPersonaje(i)">
+              <i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+
+    <!-- Botones principales -->
     <div class="form-group mt-4">
-      @if (isEditMode) {
-        <button type="submit" class="btn btn-primary" [disabled]="!isFormValidForUpdate()">
+      <div class="button-container">
+        @if (isEditMode) {
+        <button type="submit" class="btn btn-primary btn-lg me-2" [disabled]="!isFormValidForUpdate()">
           Actualizar Proyecto
         </button>
-      } @else {
-        <button type="submit" class="btn btn-primary" [disabled]="proyectoForm.invalid">
+        } @else {
+        <button type="submit" class="btn btn-primary btn-lg me-2" [disabled]="proyectoForm.invalid">
           Crear Proyecto
         </button>
-      }
-      <button type="button" class="btn btn-secondary ml-2" (click)="volverAListaProyectos()">Cancelar</button>
+        }
+        <button type="button" class="btn btn-secondary btn-lg me-2" (click)="volverAListaProyectos()">Cancelar</button>
+      </div>
     </div>
-  </form>
-</div>
+
+
+    <app-modal-delete [isVisible]="showDeleteModal" [title]="'Eliminar Personaje'"
+      [message]="'¿Estás seguro de que deseas eliminar este personaje? Esta acción no se puede deshacer.'"
+      [confirmButtonText]="'Sí, eliminar'" [cancelButtonText]="'No, cancelar'" (confirm)="onConfirmDelete()"
+      (cancel)="onCancelDelete()"></app-modal-delete>

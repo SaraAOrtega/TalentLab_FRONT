@@ -10,32 +10,35 @@ import { tap, map } from 'rxjs/operators';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   username$: Observable<string>;
+  isNavbarCollapsed = true;
   private subscription: Subscription = new Subscription();
 
   constructor(private _authService: AuthService) {
     this.isLoggedIn$ = this._authService.isLoggedIn$.pipe(
-      tap(isLoggedIn => console.log('Estado de inicio de sesión:', isLoggedIn))
+      tap((isLoggedIn) =>
+        console.log('Estado de inicio de sesión:', isLoggedIn)
+      )
     );
 
     this.username$ = this._authService.username$.pipe(
-      tap(username => console.log('Nombre de usuario en NavbarComponent:', username)),
-      map(username => username || 'Invitado') // Proporciona un valor por defecto si username es undefined
+      tap((username) =>
+        console.log('Nombre de usuario en NavbarComponent:', username)
+      ),
+      map((username) => username || 'Invitado')
     );
   }
 
   ngOnInit(): void {
-    // Suscribirse a los cambios de isLoggedIn y username
     this.subscription.add(
-      this.isLoggedIn$.subscribe(isLoggedIn => {
-        console.log('Cambio en estado de inicio de sesión:', isLoggedIn);
+      this.isLoggedIn$.subscribe((isLoggedIn) => {
         if (isLoggedIn) {
           this.subscription.add(
-            this.username$.subscribe(username => {
+            this.username$.subscribe((username) => {
               console.log('Nombre de usuario actualizado:', username);
             })
           );
@@ -44,13 +47,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    // Limpieza de suscripciones al destruir el componente
-    this.subscription.unsubscribe();
-  }
-
   logOut(): void {
     this._authService.logout();
-    console.log('Logout realizado');
+  }
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
 }

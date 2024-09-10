@@ -17,6 +17,8 @@ export class ProyectoService {
     this.myApiUrl = 'api/proyectos/';
   }
 
+
+  /*Proyectos*/
   getProyectos(): Observable<Proyecto[]> {
     return this.http.get<Proyecto[]>(`${this.myAppUrl}${this.myApiUrl}`);
   }
@@ -42,6 +44,8 @@ export class ProyectoService {
       })
     );
   }
+
+   /*Personajes*/
 
 addPersonaje(proyectoId: number, personaje: Personaje): Observable<Personaje> {
   return this.http.post<Personaje>(`${this.myAppUrl}${this.myApiUrl}${proyectoId}/personajes`, personaje);
