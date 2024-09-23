@@ -53,9 +53,9 @@
                 }
               ],
               "outputHashing": "all",
-              "allowedCommonJsDependencies": [
-                "mapbox-gl" 
-              ]
+                "allowedCommonJsDependencies": [
+      "mapbox-gl" 
+    ]
             },
             "development": {
               "optimization": false,

@@ -1,14 +1,13 @@
 {
-  "name": "talentlab",
+  "name": "frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "node config-env.mjs && ng build",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.1.3",

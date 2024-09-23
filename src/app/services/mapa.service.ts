@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
-import { mapboxConfig } from '../environment/mapbox-config';
+import { environment } from '../environment/environment'
+
+
 
 
 @Injectable({
@@ -12,7 +14,9 @@ export class MapboxService {
   zoom = 9; // Nivel de zoom inicial mejorado para ver la ubicación específica
 
   constructor() {
-    mapboxgl.accessToken = mapboxConfig.apiKey;
+   // Inicializa Mapbox con el token desde el archivo de environment
+mapboxgl.accessToken = environment.mapboxToken;
+
   }
 
   buildMap(container: string, center: [number, number]): Promise<mapboxgl.Map> {
