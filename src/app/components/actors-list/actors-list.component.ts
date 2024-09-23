@@ -95,7 +95,7 @@ export class ActorsListComponent implements OnInit {
 
   getFullImageUrl(relativePath: string | undefined | null): string {
     if (!relativePath) {
-      return 'assets/logo.png'; // Proporciona una imagen por defecto
+      return 'assets/logo.png';
     }
     return `${environment.endpoint}uploads/${relativePath}`;
   }
@@ -138,7 +138,7 @@ export class ActorsListComponent implements OnInit {
 
   obtenerFiltrosAplicados(): Partial<ActorFilters> {
     return Object.entries(this.filters).reduce((acc, [key, value]) => {
-      // Filtrar valores vacíos y null
+      
       if (value !== null && value !== '') {
         acc[key as keyof ActorFilters] = value;
       }
@@ -221,11 +221,14 @@ export class ActorsListComponent implements OnInit {
 
   abrirPerfilActor(actor: Actor): void {
     this.dialog.open(ActorPerfilComponent, {
-      width: '750px',
-      maxWidth: '90vw',
+      width: '750px',       // Ancho del diálogo
+      maxWidth: '90vw',      // Máximo ancho relativo al viewport
+      height: '100vh',        // Altura del diálogo, ajustable según tus necesidades
+      maxHeight: '120vh',     // Máximo de altura para asegurar que no sea demasiado grande
       data: actor
     });
   }
+  
 
   volverAProyecto(): void {
     if (this.proyectoId) {
