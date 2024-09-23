@@ -5,8 +5,10 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProyectoService } from '../../services/proyecto.service';
 import { FilterProyectosPipe } from '../../pipes/filter.proyectos.pipe';
+import { ResumenProyectoComponent } from '../../resumen-proyecto/resumen-proyecto.component';
 
 @Component({
   selector: 'app-list-proyectos',
@@ -17,6 +19,7 @@ import { FilterProyectosPipe } from '../../pipes/filter.proyectos.pipe';
     FormsModule,
     FilterProyectosPipe,
     ModalDeleteComponent,
+    MatDialogModule, // Añadido para usar MatDialog
   ],
   templateUrl: './list-proyectos.component.html',
   styleUrls: ['./list-proyectos.component.css'],
@@ -30,7 +33,8 @@ export class ListProyectosComponent implements OnInit {
 
   constructor(
     private _proyectoService: ProyectoService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -82,6 +86,16 @@ export class ListProyectosComponent implements OnInit {
         console.error('Error al eliminar el proyecto:', error);
         this.toastr.error('Error al eliminar el proyecto', 'Error');
       },
+    });
+  }
+
+  abrirResumenProyecto(proyecto: Proyecto): void {
+    this.dialog.open(ResumenProyectoComponent, {
+      width: '80vw',  // 80% del ancho de la ventana
+      maxWidth: '700px',  // máximo de 1200px
+      height: '90vh',  // 90% del alto de la ventana
+      maxHeight: '90vh',  // máximo del 90% del alto de la ventana
+      data: proyecto
     });
   }
 }

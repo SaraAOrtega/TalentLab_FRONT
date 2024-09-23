@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}" id="navbarColor01">
       <ul class="navbar-nav center-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link active" href="#">Inicio</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#portfolio-section">Sobre Nosotros</a>
@@ -22,14 +22,14 @@
       <ul class="navbar-nav right-nav">
         @if (!(isLoggedIn$ | async)) {
           <li class="nav-item">
-            <a [routerLink]="['/login']" class="nav-link">LOGIN</a>
+            <a [routerLink]="['/login']" class="nav-link">INICIAR SESIÓN</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/register']" class="nav-link">REGISTER</a>
+            <a [routerLink]="['/register']" class="nav-link">REGISTRO</a>
           </li>
         } @else {
           <li class="nav-item d-flex align-items-center">
-            <span class="text-grey-text">Hi, {{(username$ | async)}}!</span>
+            <span class="text-grey-text">¡Hola, {{(username$ | async)}}!</span>
           </li>
           <li class="nav-item">
             <a [routerLink]="['/proyectosList']" class="nav-link">PROYECTOS</a>

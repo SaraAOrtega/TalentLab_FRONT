@@ -17,6 +17,7 @@ export const appConfig: ApplicationConfig = {
       timeOut: 3000,
       preventDuplicates: true,
       positionClass: 'toast-bottom-right',
-    }), provideAnimationsAsync(),
+    }),
+    provideAnimationsAsync(),
   ]
 };

@@ -1,6 +1,7 @@
 <div class="page-container">
   <div class="content-wrapper">
-    <h2>Actores/actrices seleccionados</h2>
+    <h1 class="project-name">Proyecto: {{ nombreProyecto }}</h1>
+    <h4>Actores/actrices seleccionados</h4>
     @if (actoresAsociados.length > 0) {
     <div class="actor-grid">
       @for (actor of actoresAsociados; track actor.id_actor) {
@@ -14,10 +15,10 @@
           <p class="actor-age">{{actor.edad}} años</p>
         </div>
         <div class="actor-actions">
-          <button mat-button color="primary" class="view-profile-button" (click)="abrirPerfilActor(actor)">
+          <button  class="view-profile-button" (click)="abrirPerfilActor(actor)">
             Ver Perfil
           </button>
-          <button type="button" class="btn btn-outline-danger btn-sm remove-button"
+          <button type="button" class="btn btn-danger"
             (click)="eliminarActor(actor.id_actor)">
             <i class="fas fa-trash-alt"></i>
           </button>
@@ -29,14 +30,22 @@
     <p class="no-results">No hay actores asociados a este personaje.</p>
     }
 
-    <div class="action-buttons">
-      <button mat-stroked-button (click)="volverAProyecto()">
-        <mat-icon>arrow_back</mat-icon> Volver al Proyecto
-      </button>
-      <button mat-raised-button color="accent" class="agregar-actores-button" (click)="navegarAgregarActores()">
-        <mat-icon>add</mat-icon> Agregar más actores
-      </button>
+    <div class="action-buttons d-flex justify-content-between align-items-center mt-4">
+      <div class="left-button">
+        <button class="btn btn-listado" routerLink="/proyectosList">
+          <i class="bi bi-arrow-left me-2"></i> Volver Lista Proyectos
+        </button>
+      </div>
+      <div class="center-buttons d-flex justify-content-center flex-grow-1">
+        <button class="btn btn-secondary btn-volver mx-2" (click)="volverAProyecto()">
+          <i class="bi me-2"></i> Editar Proyecto
+        </button>
+        <button class="btn btn-secondary btn-volver mx-2" (click)="navegarAgregarActores()">
+          <i class="bi bi-plus me-2"></i> Agregar personajes
+        </button>
+      </div>
+    </div>
+
 
     </div>
   </div>
-</div>

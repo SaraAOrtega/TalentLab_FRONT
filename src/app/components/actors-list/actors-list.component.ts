@@ -5,10 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { finalize } from 'rxjs/operators';
@@ -46,15 +42,11 @@ interface ActorFilters {
     MatDialogModule, 
     MatButtonModule,  
     MatCardModule,
-    MatInputModule,
-    MatFormFieldModule,
     MatSelectModule, 
-    MatSliderModule, 
-    MatCheckboxModule, MatIconModule 
+    MatIconModule,
   ],
   templateUrl: './actors-list.component.html',
   styleUrls: ['./actors-list.component.css'],
- 
 })
 export class ActorsListComponent implements OnInit {
   actores: Actor[] = [];
@@ -63,6 +55,8 @@ export class ActorsListComponent implements OnInit {
   loading = false;
   personajeId: number | null = null;
   proyectoId: number | null = null;
+  filteredApplied: boolean = false;
+  actorsFetched: boolean = false;
 
   filters: ActorFilters = {
     nombre_actor: '',
@@ -70,7 +64,7 @@ export class ActorsListComponent implements OnInit {
     edad_max: 80,
     sexo: '',
     altura_min: 150,
-    altura_max: 190,
+    altura_max: 200,
     complexion: '',
     color_ojos: '',
     color_pelo: '',
@@ -98,6 +92,7 @@ export class ActorsListComponent implements OnInit {
       }
     });
   }
+
   getFullImageUrl(relativePath: string | undefined | null): string {
     if (!relativePath) {
       return 'assets/logo.png'; // Proporciona una imagen por defecto
@@ -108,24 +103,23 @@ export class ActorsListComponent implements OnInit {
   handleImageError(event: any): void {
     event.target.src = 'assets/logo.png'
   }
-  
 
   getActores(): void {
     this.loading = true;
     const filtrosAplicados = this.obtenerFiltrosAplicados();
 
-
     this.actorService.getActoresConFiltros(filtrosAplicados).pipe(
-      finalize(() => this.loading = false)
+      finalize(() => {
+        this.loading = false;
+        this.actorsFetched = true;
+      })
     ).subscribe({
       next: (actores: Actor[]) => {
         this.actores = actores.filter(actor => 
           !this.actoresAsociados.some(a => a.id_actor === actor.id_actor)
         );
-      
       },
       error: (e) => {
-        
         this.toastr.error('No se pudo obtener la lista de actores');
       }
     });
@@ -137,7 +131,6 @@ export class ActorsListComponent implements OnInit {
         this.actoresAsociados = actoresAsociados;
       },
       error: (e) => {
-       
         this.toastr.error('Hubo un problema al obtener la lista de actores asociados');
       }
     });
@@ -154,6 +147,13 @@ export class ActorsListComponent implements OnInit {
   }
 
   aplicarFiltros(): void {
+    this.filteredApplied = true;
+    this.getActores();
+  }
+
+  verTodosLosActores(): void {
+    this.resetFiltros();
+    this.filteredApplied = true;
     this.getActores();
   }
 
@@ -164,7 +164,7 @@ export class ActorsListComponent implements OnInit {
       edad_max: 80,
       sexo: '',
       altura_min: 150,
-      altura_max: 190,
+      altura_max: 200,
       complexion: '',
       color_ojos: '',
       color_pelo: '',
@@ -175,7 +175,9 @@ export class ActorsListComponent implements OnInit {
       skills: '',
       carnet_conducir: null
     };
-    this.getActores();
+    this.filteredApplied = false;
+    this.actorsFetched = false;
+    this.actores = [];
   }
 
   onSelectActor(actorId: number): void {

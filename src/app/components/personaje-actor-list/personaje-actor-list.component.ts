@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ActorService } from '../../services/actor.service';
 import { Actor } from '../../interfaces/actor';
 import { ToastrService } from 'ngx-toastr';
+import { ProyectoService } from '../../services/proyecto.service'
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +11,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { ActorPerfilComponent } from '../actor-perfil/actor-perfil.component';
 import { environment } from '../../environment/environment';
 import { MatIcon } from '@angular/material/icon';
+
+
 
 @Component({
   selector: 'app-personaje-actor-list',
@@ -19,14 +22,15 @@ import { MatIcon } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    MatIcon,
+    MatIcon, RouterLink
   ],
   templateUrl: './personaje-actor-list.component.html',
   styleUrl: './personaje-actor-list.component.css',
 })
 export class PersonajeActorListComponent implements OnInit {
   personajeId!: number;
-  proyectoId!: number; // Asegúrate de que esta propiedad esté definida
+  proyectoId!: number; 
+  nombreProyecto: string = '';
   actoresAsociados: Actor[] = [];
   todosActores: Actor[] = [];
 
@@ -34,6 +38,7 @@ export class PersonajeActorListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private actorService: ActorService,
+    private proyectoService: ProyectoService,
     private toastr: ToastrService,
     private dialog: MatDialog
   ) {}
@@ -46,21 +51,34 @@ export class PersonajeActorListComponent implements OnInit {
       } else {
         console.error('No se proporcionó ID de personaje');
       }
-
+  
       this.route.queryParamMap.subscribe((queryParams) => {
         const proyectoIdParam = queryParams.get('proyectoId');
-
+  
         if (proyectoIdParam) {
           this.proyectoId = +proyectoIdParam;
+          this.cargarNombreProyecto(); // Cargar el nombre del proyecto aquí
         } else {
           console.error('No se proporcionó ID de proyecto');
         }
-
+  
         // Cargar actores asociados si ambos IDs están definidos
         if (this.personajeId && this.proyectoId) {
           this.cargarActoresAsociados();
         }
       });
+    });
+  }
+
+  cargarNombreProyecto(): void {
+    this.proyectoService.getProyecto(this.proyectoId).subscribe({
+      next: (proyecto) => {
+        this.nombreProyecto = proyecto.nombre_proyecto;
+      },
+      error: (error) => {
+        console.error('Error al cargar el nombre del proyecto', error);
+        this.toastr.error('No se pudo cargar el nombre del proyecto');
+      }
     });
   }
 
@@ -135,6 +153,9 @@ export class PersonajeActorListComponent implements OnInit {
       this.router.navigate(['/proyectosList']);
     }
   }
+
+
+  
 
   handleImageError(event: any): void {
     event.target.src = 'assets/default-actor-image.jpg';

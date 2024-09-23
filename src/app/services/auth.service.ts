@@ -39,27 +39,24 @@ export class AuthService {
   }
 
   login(user: LoginUser): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(`${this.myAppUrl}${this.myApiUrl}/login`, user)
-      .pipe(
-        tap((response) => {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('username', response.username);
-          localStorage.setItem('userId', response.userId); // Guardar el ID del usuario
-          this.isLoggedInSubject.next(true);
-          this.usernameSubject.next(response.username);
-          this.userIdSubject.next(response.userId);
-
-          console.log(response.username);
-          console.log(response.token);
-        }),
-        catchError((error) => {
-          console.error('Error en login:', error);
-          throw error;
-        })
-      );
+    return this.http.post<LoginResponse>(`${this.myAppUrl}${this.myApiUrl}/login`, user).pipe(
+      tap((response) => {
+        const expirationTime = new Date();
+        expirationTime.setHours(expirationTime.getHours() + 1); // Expiración en 1 hora
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('username', response.username);
+        localStorage.setItem('userId', response.userId);
+        localStorage.setItem('tokenExpiration', expirationTime.toISOString()); // Almacenar la fecha de expiración
+        this.isLoggedInSubject.next(true);
+        this.usernameSubject.next(response.username);
+        this.userIdSubject.next(response.userId);
+      }),
+      catchError((error) => {
+        console.error('Error en login:', error);
+        throw error;
+      })
+    );
   }
-
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
@@ -84,8 +81,16 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return this.hasToken();
+    const token = localStorage.getItem('token');
+    const expiration = localStorage.getItem('tokenExpiration');
+    if (!token || !expiration) return false;
+  
+    const now = new Date();
+    const expirationDate = new Date(expiration);
+    console.log('Token en localStorage:', token); // Verifica el token aquí
+    return now < expirationDate; // Devuelve true si el token no ha expirado
   }
+  
 
   getUserId(): string | null {
     return localStorage.getItem('userId');

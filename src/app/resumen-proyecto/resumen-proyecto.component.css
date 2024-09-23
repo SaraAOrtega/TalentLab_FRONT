@@ -1,0 +1,81 @@
+.modal-content {
+    border-radius: 0.5rem;
+  }
+  
+  .modal-header {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .proyecto-info h3 {
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .descripcion-proyecto {
+    background-color: var(--grey-color);
+    border-left: 15px solid var(--primary-color);
+    padding: 10px;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .list-group-item {
+    transition: background-color 0.2s ease;
+  }
+  
+  .list-group-item:hover {
+    background-color: var(--grey-color);
+  }
+  
+  .btn-outline-primary {
+    border-color: var(--text-color);
+    color: var(--text-color);
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: var(--text-color);
+    color: white;
+  }
+
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--text-color);
+    color: white;
+  }
+
+  
+  
+  /* Estilos adicionales para mejorar la apariencia */
+  .modal-body {
+    padding: 50px;
+  }
+  
+  .proyecto-info h5 {
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .text-muted {
+    font-size: 0.9em;
+  }
+  
+  .modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 15px;
+  }
+  
+  /* Asegúrate de que el modal sea scrollable si el contenido es muy largo */
+  .modal-dialog {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-body {
+    overflow-y: auto;
+  }

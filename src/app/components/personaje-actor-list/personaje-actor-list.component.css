@@ -5,6 +5,10 @@
     position: relative;
     overflow: hidden;
   }
+
+  h1,h4{
+    color: var(--text-color)
+  }
   
   .content-wrapper {
     position: relative;
@@ -58,21 +62,58 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
+    padding: 0.3rem;
   }
   
   .view-profile-button {
-    flex-grow: 1;
-    margin-right: 0.5rem;
+    width: 80%;
+    font-size: 0.8rem;
+    padding: 0.7rem 0;
+    background-color: var(--text-color);
+    color: var(--beig-color);
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 0.8rem;
+  }
+
+  .btn-danger{
+    border-radius: 50%;
   }
   
-  .remove-button {
-    flex-shrink: 0;
+  .btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--beig-color);
+    border: none;
+    padding: 0.7rem;
+    font-size: 1rem;
+    border-radius: 0.8rem;
   }
+  
+  .btn-secondary:hover {
+    background-color: var(--text-color);
+  }
+  
+  .view-profile-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+  }
+  
+  .view-profile-button.selected {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  
+  .view-profile-button.selected:hover {
+    background-color: var(--text-color);
+    color: var(--beig-color);
+  }
+
+  
+ 
   
   .action-buttons {
     text-align: center;
-    margin-top: 2rem; 
+    margin-top: 0; 
   }
   
   .agregar-actores-button {
