@@ -12,7 +12,7 @@ export class MapboxService {
   zoom = 9; // Nivel de zoom inicial mejorado para ver la ubicación específica
 
   constructor() {
-    mapboxgl.accessToken = environment.mapboxKey;
+    mapboxgl.accessToken = process.env['MAPBOX_TOKEN'] || '';
   }
 
   buildMap(container: string, center: [number, number]): Promise<mapboxgl.Map> {
