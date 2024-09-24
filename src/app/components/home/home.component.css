@@ -202,49 +202,12 @@
 }
 
 /* Estilos de información de contacto */
-/* Contact Section */
-.contact-section {
-  padding: 50px;
-  background-color: var(--grey-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; /* Permite que el contenido se ajuste en una sola columna si es necesario */
-}
-
-.container-fluid {
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 15px;
-}
-
-/* Mapa */
-.map-container {
-  height: 400px;
-  margin-bottom: 2px;
-  margin-top: 10px;
-  position: relative;
-}
-
-#map {
-  width: 100%; 
-  height: 100%; 
-  position: absolute;
-}
-
-/* Estilos de información de contacto */
-.contact-info h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
 .contact-info p {
-  margin: 5px 0;
-  padding: 0;
-  line-height: 1.5;
+  margin: 5px 0; 
+  padding: 0; 
+  line-height: 1.2; 
 }
 
-/* Estilos del formulario */
 .contact-form {
   background-color: var(--primary-color);
   padding: 30px 35px;
@@ -252,27 +215,12 @@
   margin: 25px 0;
 }
 
-.contact-form h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
 .form-control {
-  width: 100%;
   border: none;
   border-bottom: 1px solid #333;
   border-radius: 0;
   padding: 10px 0;
   background-color: transparent;
-  margin-bottom: 15px;
-}
-
-textarea.form-control {
-  resize: none;
 }
 
 .btn-primary {
@@ -283,42 +231,10 @@ textarea.form-control {
   border-radius: 50px;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  width: 100%; /* Botón toma todo el ancho en pantallas pequeñas */
 }
 
 .btn-primary:hover {
   background-color: #555;
-}
-
-/* Media Queries para dispositivos móviles */
-@media (max-width: 768px) {
-  .contact-section {
-    flex-direction: column;
-  }
-
-  .contact-info, .contact-form {
-    width: 100%; /* Ambos bloques toman el 100% del ancho en pantallas pequeñas */
-    margin-bottom: 30px;
-  }
-
-  .map-container {
-    height: 300px; /* Ajuste en la altura del mapa para pantallas pequeñas */
-  }
-}
-
-/* Media Queries para pantallas más pequeñas (móviles) */
-@media (max-width: 576px) {
-  .contact-section {
-    padding: 20px;
-  }
-
-  .contact-form {
-    padding: 20px;
-  }
-
-  .map-container {
-    height: 250px; /* Mapa más pequeño en móviles */
-  }
 }
 
 /* Footer */
