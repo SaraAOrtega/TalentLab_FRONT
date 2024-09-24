@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "node config-env.mjs && ng build",
+    "build": "node -r dotenv/config config-env.mjs && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -37,6 +37,7 @@
     "@types/mapbox-gl": "^3.4.0",
     "@types/node": "^22.5.5",
     "@types/uuid": "^10.0.0",
+    "dotenv": "^16.4.5",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
