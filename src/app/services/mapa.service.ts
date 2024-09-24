@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
-import { environment } from '../environment/environment'
+import { mapboxConfig } from '../environments/mapbox-config';
 
 
 
@@ -15,7 +15,7 @@ export class MapboxService {
 
   constructor() {
    // Inicializa Mapbox con el token desde el archivo de environment
-mapboxgl.accessToken = environment.mapboxToken;
+   mapboxgl.accessToken = mapboxConfig.apiKey;
 
   }
 
