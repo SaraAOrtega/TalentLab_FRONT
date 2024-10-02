@@ -133,7 +133,7 @@ export class PersonajeActorListComponent implements OnInit {
 
   abrirPerfilActor(actor: Actor): void {
     this.dialog.open(ActorPerfilComponent, {
-      width: '750px',
+      width: '1300px',
       maxWidth: '90vw',
       data: actor,
     });

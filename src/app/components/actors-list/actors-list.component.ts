@@ -221,10 +221,8 @@ export class ActorsListComponent implements OnInit {
 
   abrirPerfilActor(actor: Actor): void {
     this.dialog.open(ActorPerfilComponent, {
-      width: '750px',       // Ancho del diálogo
+      width: '1300px',       // Ancho del diálogo
       maxWidth: '90vw',      // Máximo ancho relativo al viewport
-      height: '100vh',        // Altura del diálogo, ajustable según tus necesidades
-      maxHeight: '120vh',     // Máximo de altura para asegurar que no sea demasiado grande
       data: actor
     });
   }

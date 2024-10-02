@@ -1,10 +1,6 @@
 <mat-dialog-content class="actor-profile-content">
   @if (actor) {
     <div class="profile-container">
-      <header class="name-container">
-        
-      </header>
-
       <div class="carousel-wrapper">
         <div class="carousel-container" role="region" aria-label="Galería de fotos del actor">
           <div class="carousel-slides">
@@ -35,74 +31,68 @@
         </div>
       </div>
       
-      <header class="name-container">
-        <h2 class="actor-name">{{ actor.nombre_actor }}</h2>
-      </header>
+      <div class="info-section">
+        <header class="name-container">
+          <h1 class="actor-name">{{ actor.nombre_actor }}</h1>
+        </header>
 
-      <div class="info-grid" role="list">
-        <div class="info-column" role="listitem">
-          <dl>
-            <div class="info-item">
-              <dt class="info-label">Edad:</dt>
-              <dd class="info-value">{{ actor.edad }} años</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Sexo:</dt>
-              <dd class="info-value">{{ actor.sexo }}</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Altura:</dt>
-              <dd class="info-value">{{ actor.altura }} cm</dd>
-            </div>
-          </dl>
-        </div>
-        <div class="info-column" role="listitem">
-          <dl>
-            <div class="info-item">
-              <dt class="info-label">Complexión:</dt>
-              <dd class="info-value">{{ actor.complexion }}</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Color de ojos:</dt>
-              <dd class="info-value">{{ actor.color_ojos }}</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Color de pelo:</dt>
-              <dd class="info-value">{{ actor.color_pelo }}</dd>
-            </div>
-          </dl>
-        </div>
-        <div class="info-column" role="listitem">
-          <dl>
-            <div class="info-item">
-              <dt class="info-label">Tipo de pelo:</dt>
-              <dd class="info-value">{{ actor.tipo_pelo }}</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Corte de pelo:</dt>
-              <dd class="info-value">{{ actor.corte_pelo }}</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Color de piel:</dt>
-              <dd class="info-value">{{ actor.tez }}</dd>
-            </div>
-          </dl>
-        </div>
-        <div class="info-column" role="listitem">
-          <dl>
-            <div class="info-item">
-              <dt class="info-label">Idiomas:</dt>
-              <dd class="info-value">{{ actor.idiomas }}</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Habilidades:</dt>
-              <dd class="info-value">{{ actor.skills }}</dd>
-            </div>
-            <div class="info-item">
-              <dt class="info-label">Carnet de conducir:</dt>
-              <dd class="info-value">{{ actor.carnet_conducir ? 'Sí' : 'No' }}</dd>
-            </div>
-          </dl>
+        <div class="info-grid" role="list">
+          <div class="info-column" role="listitem">
+            <dl>
+              <div class="info-item">
+                <dt class="info-label">Edad:</dt>
+                <dd class="info-value">{{ actor.edad }} años</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Sexo:</dt>
+                <dd class="info-value">{{ actor.sexo }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Altura:</dt>
+                <dd class="info-value">{{ actor.altura }} cm</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Complexión:</dt>
+                <dd class="info-value">{{ actor.complexion }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Color de ojos:</dt>
+                <dd class="info-value">{{ actor.color_ojos }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Color de pelo:</dt>
+                <dd class="info-value">{{ actor.color_pelo }}</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="info-column" role="listitem">
+            <dl>
+              <div class="info-item">
+                <dt class="info-label">Tipo de pelo:</dt>
+                <dd class="info-value">{{ actor.tipo_pelo }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Corte de pelo:</dt>
+                <dd class="info-value">{{ actor.corte_pelo }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Color de piel:</dt>
+                <dd class="info-value">{{ actor.tez }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Idiomas:</dt>
+                <dd class="info-value">{{ actor.idiomas }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Habilidades:</dt>
+                <dd class="info-value">{{ actor.skills }}</dd>
+              </div>
+              <div class="info-item">
+                <dt class="info-label">Carnet de conducir:</dt>
+                <dd class="info-value">{{ actor.carnet_conducir ? 'Sí' : 'No' }}</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
     </div>

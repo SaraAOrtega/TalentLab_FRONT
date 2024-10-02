@@ -1,27 +1,105 @@
-# Frontend
+# 🚀 Angular 18 Fullstack Project: Plataforma Talent Lab
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
 
-## Development server
+## 🌟 Project Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Talent Lab is presented as a platform for production companies to conduct more efficient searches for actors and actresses. It is designed to be developed by Talent Agencies to provide their clients (production companies) with a more efficient service for finding the necessary talent for audiovisual productions, especially in advertising.
 
-## Code scaffolding
+The platform has been developed with:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **🖥️ Frontend**: Angular 18 using the Mapbox API.
+- **⚙️ Backend**:  Node.js using Express and connected to a MySQL database.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## 🛠️ Prerequisites
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To start the project, it is necessary to have the following installed:
 
-## Running end-to-end tests
+- Node.js (version 16.x or newer)
+- npm (version 7.x or newer)
+- Angular CLI (version 18.x or newer)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 📁 Repository Structure
 
-## Further help
+The project is divided into two repositories:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Frontend**: [Explore TalentLab_FRONT](https://github.com/SaraAOrtega/TalentLab_FRONT)
+- **Backend**: [Explore TalentLab_BACK](https://github.com/SaraAOrtega/TalentLab_BACK)
+
+Please clone each repository and follow the setup instructions below.
+
+## 🚀 Getting Started
+
+### 🔧 Setting Up the Backend
+
+1. Clone the backend repository:
+   ```bash
+   git clone https://github.com/SaraAOrtega/TalentLab_BACK.git
+   cd TalentLab_BACK
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Import the demo database:
+   Locate the `talentlab_db.sql` file in the Backend folder and import it into your MySQL server.
+
+4. Compile TypeScript:
+   ```bash
+   tsc --w
+   ```
+
+5. Launch the server:
+   ```bash
+   nodemon dist/index.js
+   ```
+
+### 🎨 Preparing the Frontend
+
+1. Clone the frontend repository:
+   ```bash
+   git clone https://github.com/SaraAOrtega/TalentLab_FRONT.git
+   cd TalentLab_FRONT
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Secure a Mapbox API token from [Mapbox](https://account.mapbox.com/access-tokens/).
+
+4. Set up your environment:
+   Edit `src/environments/environment.ts` in the frontend directory with:
+   ```typescript
+   export const environment = {
+     production: false,
+     endpoint: 'http://localhost:3000',
+     mapboxKey: 'your_mapbox_token_here'
+   };
+   ```
+
+5. Launch the application:
+   ```bash
+   ng serve --o
+   ```
+
+6. Visit `http://localhost:4200` in your browser!
+
+## 🌈 Features Showcase
+
+### 🖥️ Frontend Highlights
+
+- **🗺️ Mapbox Integration**: Explore interactive maps with custom markers.
+- **📅 FullCalendar Integration**: Manage events with an intuitive modal interface for creation and deletion.
+- **📊 Chart.js Integration**: Visualize user team categories with stunning charts.
+
+### ⚙️ Backend Capabilities
+
+- **👥 User Management**: Full CRUD operations for user data.
+- **🎉 Event Management**: Comprehensive CRUD functionality for event handling.
+- **📍 Marker Management**: Complete CRUD operations for map markers.
+

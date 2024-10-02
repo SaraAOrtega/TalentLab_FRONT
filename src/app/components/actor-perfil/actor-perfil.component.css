@@ -1,123 +1,146 @@
 ::ng-deep .mat-dialog-container {
-    padding: 0 !important;
-    overflow: hidden;
-    max-width: 150vw !important; 
-    width: 600px; 
-  }
-  
+  padding: 0 !important;
+  overflow: hidden;
+  max-width: 90vw !important; 
+  width: 1200px; 
+  height: 90vh;
+}
+
 .actor-profile-content {
-    max-height: 100vh;
-    overflow-y: auto;
-    padding: 0;
-  }
-  
+  height: calc(90vh - 100px); /* Ajusta esto según el tamaño de tu mat-dialog-actions */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-container {
+  display: flex;
+  height: 100%;
+}
+
+.carousel-wrapper {
+  width: 60%; /* Aumentado del 40% anterior */
+  height: 100%;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.carousel-slides {
+  height: 100%;
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 110%;
+  object-fit: cover;
+}
+
+.slide.active {
+  display: block;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 6px;
+}
+
+.next {
+  right: 6px;
+}
+
+.image-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 0px 5px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.info-section {
+  width: 40%; /* Reducido del 60% anterior */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.name-container {
+  margin-bottom: 20px;
+}
+
+.actor-name {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 20px;
+}
+
+.info-column {
+  flex: 1 0 50%;
+  padding: 0 10px 10px 0;
+}
+
+.info-item {
+  margin-bottom: 8px;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 2px;
+  font-size: 0.9em;
+}
+
+.info-value {
+  color: var(--text-color);
+  font-size: 0.9em;
+}
+
+@media (max-width: 992px) {
   .profile-container {
-    display: flex;
     flex-direction: column;
+  }
+  
+  .carousel-wrapper,
+  .info-section {
     width: 100%;
   }
   
-  .carousel-container {
-    position: relative;
-    width: 100%;
-    height: 600px; /* Ajusta la altura total del carrusel */
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
+  .carousel-wrapper {
+    height: 50vh;
   }
   
-  .carousel-slides {
-    display: flex;
-    height: 100%;
+  .info-section {
+    height: calc(40vh - 64px);
+    overflow-y: auto;
   }
-  
-  .slide {
-    display: none;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .slide.active {
-    display: block;
-  }
-  
-  .prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s;
-  }
-  
-  .prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
-  .prev {
-    left: 6px;
-  }
-  
-  .next {
-    right: 6px;
-  }
-  
-  .image-counter {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 0px 5px;
-    border-radius: 15px;
-    font-size: 12px;
-  }
-  
-  .name-container {
-    display: flex;
-    justify-content: flex-start;
-    padding: 0 ;
-  }
-  
-  .actor-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 10px;
-  }
-  
-  .info-grid {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 0 0 12px; 
-    margin-bottom: 0; 
-  }
-  
-  .info-column {
-    flex: 1;
-    min-width: 180px;
-   
-  }
-  
-  .info-item {
-    margin-bottom: 1px;
-  }
-  
-  .info-label {
-    font-weight: bold;
-    color: #555;
-    display: block;
-  }
-  
-  .info-value {
-    color: var(--text-color);
-  }
-  
-  @media (max-width: 768px) {
-    .info-column {
-      flex-basis: 100%;
-    }
-  }
+}
