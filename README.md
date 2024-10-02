@@ -91,18 +91,22 @@ Please clone each repository and follow the setup instructions below.
 ## 🌈 On this link you'll find the website's homepage (https://talent-lab-one.vercel.app/home),
 
 ## 🌈 And ScreenShots
+<a href="https://ibb.co/bXV7WHS"><img src="https://i.ibb.co/jDYH6Vc/screenshot1.png" alt="screenshot1" border="0"></a>
+<a href="https://ibb.co/sJSXcnH"><img src="https://i.ibb.co/1JV4B16/screenshot2.png" alt="screenshot2" border="0"></a>
+<a href="https://ibb.co/5h7gygV"><img src="https://i.ibb.co/3mJ9q9H/screenshot3.png" alt="screenshot3" border="0"></a>
+<a href="https://ibb.co/TbxsGqg"><img src="https://i.ibb.co/Jyw9TFs/screenshot4.png" alt="screenshot4" border="0"></a>
+<a href="https://ibb.co/FKYkWZj"><img src="https://i.ibb.co/0c9pX4d/screenshot5.png" alt="screenshot5" border="0"></a>
+<a href="https://ibb.co/k0BM15r"><img src="https://i.ibb.co/nfmRC6V/screenshot6.png" alt="screenshot6" border="0"></a>
+<a href="https://ibb.co/x2MvxzD"><img src="https://i.ibb.co/wdKH5pR/screenshot7.png" alt="screenshot7" border="0"></a>
+<a href="https://ibb.co/ncZtJL9"><img src="https://i.ibb.co/fpBLwxf/screenshot8.png" alt="screenshot8" border="0"></a>
+<a href="https://ibb.co/WkW2DSh"><img src="https://i.ibb.co/Yc7LDvC/screenshot9.png" alt="screenshot9" border="0"></a>
 
-<p float="left">
-  <img src="images/screenshot1.png" width="100" />
-  <img src="images/screenshot2.png" width="100" />
-  <img src="images/screenshot3.png" width="100" />
-  <img src="images/screenshot4.png" width="100" />
-  <img src="images/screenshot5.png" width="100" />
-  <img src="images/screenshot6.png" width="100" /> 
-  <img src="images/screenshot7.png" width="100" />
-  <img src="images/screenshot8.png" width="100" />
-  <img src="images/screenshot9.png" width="100" />
-</p>
+
+
+
+
+
+
 
 
 
