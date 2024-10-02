@@ -73,13 +73,11 @@ Please clone each repository and follow the setup instructions below.
 3. Secure a Mapbox API token from [Mapbox](https://account.mapbox.com/access-tokens/).
 
 4. Set up your environment:
-   Edit `src/environments/environment.ts` in the frontend directory with:
+   Create `src/app/environments/mapbox-config.ts` in the frontend directory with:
    ```typescript
-   export const environment = {
-     production: false,
-     endpoint: 'http://localhost:3001',
-     mapboxKey: 'your_mapbox_token_here'
-   };
+  export const mapboxConfig = {
+  apiKey: 'YOUR MAPBOX KEY'
+};
    ```
 
 5. Launch the application:
@@ -89,17 +87,26 @@ Please clone each repository and follow the setup instructions below.
 
 6. Visit `http://localhost:4200` in your browser!
 
-## 🌈 Features Showcase
 
-### 🖥️ Frontend Highlights
+## 🌈 On this link you'll find the website's homepage (https://talent-lab-one.vercel.app/home),
 
-- **🗺️ Mapbox Integration**: Explore interactive maps with custom markers.
-- **📅 FullCalendar Integration**: Manage events with an intuitive modal interface for creation and deletion.
-- **📊 Chart.js Integration**: Visualize user team categories with stunning charts.
+## 🌈 And ScreenShots
 
-### ⚙️ Backend Capabilities
+<p float="left">
+  <img src="images/screenshot1.png" width="100" />
+  <img src="images/screenshot2.png" width="100" />
+  <img src="images/screenshot3.png" width="100" />
+  <img src="images/screenshot4.png" width="100" />
+  <img src="images/screenshot5.png" width="100" />
+  <img src="images/screenshot6.png" width="100" /> 
+  <img src="images/screenshot7.png" width="100" />
+  <img src="images/screenshot8.png" width="100" />
+  <img src="images/screenshot9.png" width="100" />
+</p>
 
-- **👥 User Management**: Full CRUD operations for user data.
-- **🎉 Event Management**: Comprehensive CRUD functionality for event handling.
-- **📍 Marker Management**: Complete CRUD operations for map markers.
+
+
+
+
+
 
