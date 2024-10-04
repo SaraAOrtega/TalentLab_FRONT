@@ -99,6 +99,7 @@ Please clone each repository and follow the setup instructions below.
 <a href="https://ibb.co/k0BM15r"><img src="https://i.ibb.co/nfmRC6V/screenshot6.png" alt="screenshot6" border="0"></a>
 <a href="https://ibb.co/x2MvxzD"><img src="https://i.ibb.co/wdKH5pR/screenshot7.png" alt="screenshot7" border="0"></a>
 <a href="https://ibb.co/ncZtJL9"><img src="https://i.ibb.co/fpBLwxf/screenshot8.png" alt="screenshot8" border="0"></a>
+<a href="https://ibb.co/G2kpxGs"><img src="https://i.ibb.co/ncfmg43/Captura-de-pantalla-2024-10-04-114523.png" alt="Captura-de-pantalla-2024-10-04-114523" border="0"></a>
 <a href="https://ibb.co/WkW2DSh"><img src="https://i.ibb.co/Yc7LDvC/screenshot9.png" alt="screenshot9" border="0"></a>
 
 
