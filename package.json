@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "node -r dotenv/config config-env.mjs && ng build",
+    "build:prod": "node -r dotenv/config config-env.mjs && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -30,6 +31,7 @@
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^18.0.0",
     "@angular-devkit/build-angular": "^18.0.2",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",

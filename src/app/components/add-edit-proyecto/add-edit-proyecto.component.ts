@@ -81,13 +81,25 @@ export class AddEditProyectoComponent implements OnInit {
   private cargarProyecto(id: number) {
     this.proyectoService.getProyecto(id).subscribe({
       next: (proyecto) => {
-        this.proyectoForm.patchValue(proyecto);
+        // Formatear las fechas antes de asignarlas al formulario
+        const proyectoFormateado = {
+          ...proyecto,
+          fecha_pdv: this.formatearFecha(proyecto.fecha_pdv),
+          fecha_rodaje: this.formatearFecha(proyecto.fecha_rodaje),
+        };
+        this.proyectoForm.patchValue(proyectoFormateado);
         proyecto.personajes?.forEach((personaje) => {
           this.personajes.push(this.crearPersonajeFormGroup(personaje));
         });
       },
       error: () => this.toastr.error('No se pudo cargar el proyecto'),
     });
+  }
+
+  private formatearFecha(fecha: string | Date): string {
+    if (!fecha) return '';
+    const fechaObj = new Date(fecha);
+    return fechaObj.toISOString().split('T')[0];
   }
 
   private crearPersonajeFormGroup(personaje: Personaje = {}): FormGroup {
