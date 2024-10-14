@@ -28,9 +28,17 @@ export class ActorPerfilComponent {
 
   getFullImageUrl(relativePath: string | undefined | null): string {
     if (!relativePath) {
-      return 'assets/logo.png'; 
+      return 'assets/logo.png'; // Ruta por defecto si no hay imagen
     }
-    return `${environment.endpoint}uploads/${relativePath}`;
+  
+    // Comprobar si estamos en modo de producción
+    if (environment.production) {
+      // En producción, devolver la URL de Cloudinary directamente
+      return relativePath; // Suponiendo que relativePath es la URL completa de Cloudinary
+    } else {
+      // En desarrollo, devolver la URL construida con el endpoint
+      return `${environment.endpoint}uploads/${relativePath}`;
+    }
   }
 
   handleImageError(event: any): void {
