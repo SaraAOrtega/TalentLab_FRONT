@@ -95,10 +95,13 @@ export class ActorsListComponent implements OnInit {
 
   getFullImageUrl(relativePath: string | undefined | null): string {
     if (!relativePath) {
-      return 'assets/logo.png';
+      return 'assets/logo.png'; // Ruta por defecto si no hay imagen
     }
-    return `${environment.endpoint}uploads/${relativePath}`;
+    
+    // Aquí deberías usar la URL de Cloudinary directamente
+    return relativePath; // Asumiendo que relativePath ya es la URL completa de Cloudinary
   }
+  
 
   handleImageError(event: any): void {
     event.target.src = 'assets/logo.png'
