@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Proyecto, Personaje } from '../interfaces/proyecto';
 import { Actor } from '../interfaces/actor';
+import { environment } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ProyectoService {
   private myApiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.myAppUrl = 'http://localhost:3001/';
+    this.myAppUrl = environment.endpoint;
     this.myApiUrl = 'api/proyectos/';
   }
 
