@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    endpoint: process.env['NG_APP_API_URL'] || 'https://su-backend-por-defecto.railway.app/'
+    endpoint: 'https://talentlabback-production.up.railway.app/', // Reemplaza con la URL real de tu backend en Railway
   };
