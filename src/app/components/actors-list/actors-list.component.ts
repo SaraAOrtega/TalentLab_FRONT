@@ -97,9 +97,15 @@ export class ActorsListComponent implements OnInit {
     if (!relativePath) {
       return 'assets/logo.png'; // Ruta por defecto si no hay imagen
     }
-    
-    // Aquí deberías usar la URL de Cloudinary directamente
-    return relativePath; // Asumiendo que relativePath ya es la URL completa de Cloudinary
+  
+    // Comprobar si estamos en modo de producción
+    if (environment.production) {
+      // En producción, devolver la URL de Cloudinary directamente
+      return relativePath; // Suponiendo que relativePath es la URL completa de Cloudinary
+    } else {
+      // En desarrollo, devolver la URL construida con el endpoint
+      return `${environment.endpoint}uploads/${relativePath}`;
+    }
   }
   
 
